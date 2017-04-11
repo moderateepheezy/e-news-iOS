@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "BA098ADEA572CEE23B5AA3665133D0E6C30B7CC3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "BA098ADEA572CEE23B5AA3665133D0E6C30B7CC3" : 9223372036854775807,
+    "BF99DE6BB5BB74624B53DF8C1D1CAC692569E22F" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F77D82FC-1CE7-4702-A251-FB526175E098",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "BA098ADEA572CEE23B5AA3665133D0E6C30B7CC3" : "e-news-paper\/",
+    "BF99DE6BB5BB74624B53DF8C1D1CAC692569E22F" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "e-news-paper",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "e-news-paper.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/SimpuMind\/e-newspaper-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BA098ADEA572CEE23B5AA3665133D0E6C30B7CC3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iOSMentorship\/GroupbyPair-Afees-Lawal.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BF99DE6BB5BB74624B53DF8C1D1CAC692569E22F"
+    }
+  ]
+}

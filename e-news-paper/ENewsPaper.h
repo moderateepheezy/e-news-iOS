@@ -15,3 +15,4 @@
 
 #import "NDParallaxIntroView/NDIntroPageView.h"
 #import "NDParallaxIntroView/NDIntroView.h"
+#import "/Users/mac/Desktop/CompleteiOS9SampleCodes/e-news-paper/e-news-paper/HTMLLabel.h"

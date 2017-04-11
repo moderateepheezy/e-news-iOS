@@ -19,6 +19,10 @@ class NewsListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let newsRef = FIRDatabase.database().reference(withPath: "news")
+        newsRef.keepSynced(true)
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -37,6 +41,19 @@ class NewsListVC: UIViewController {
                 self.tableView.reloadData()
             }
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "ShowDetails"{
+            if let news = sender as? News{
+                let newsVc = segue.destination as! NewsDetailVC
+                newsVc.news = news
+                newsVc.vendor = vendor
+                newsVc.hidesBottomBarWhenPushed = true
+            }
+        }
     }
 
 
@@ -79,5 +96,10 @@ extension NewsListVC: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newses.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let news = newses[indexPath.item]
+        self.performSegue(withIdentifier: "ShowDetails", sender: news)
     }
 }

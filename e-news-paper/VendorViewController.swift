@@ -18,6 +18,10 @@ class VendorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let vendorRef = FIRDatabase.database().reference(withPath: "newspapers")
+        vendorRef.keepSynced(true)
+        
         tableView.delegate = self
         tableView.dataSource = self
 

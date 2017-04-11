@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = .black
         
         FIRApp.configure()
+        
+        FIRDatabase.database().persistenceEnabled = true
 //        
 //        window =  UIWindow(frame: UIScreen.main.bounds)
 //        window?.makeKeyAndVisible()

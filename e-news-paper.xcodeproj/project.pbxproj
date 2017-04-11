@@ -30,6 +30,8 @@
 		946E75951E99DDCF00887A43 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75941E99DDCF00887A43 /* User.swift */; };
 		946E75971E9A0FDB00887A43 /* ImageCacheLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75961E9A0FDB00887A43 /* ImageCacheLoader.swift */; };
 		946E75991E9A20A400887A43 /* AppFirRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75981E9A20A400887A43 /* AppFirRef.swift */; };
+		946E759B1E9A702F00887A43 /* NewsDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E759A1E9A702F00887A43 /* NewsDetailVC.swift */; };
+		946E75A51E9C8F8300887A43 /* HTMLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 946E75A41E9C8F8300887A43 /* HTMLLabel.m */; };
 		949212671E95C730006FE088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949212661E95C730006FE088 /* AppDelegate.swift */; };
 		949212691E95C730006FE088 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949212681E95C730006FE088 /* ProfileViewController.swift */; };
 		9492126C1E95C730006FE088 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9492126A1E95C730006FE088 /* Main.storyboard */; };
@@ -90,6 +92,9 @@
 		946E75941E99DDCF00887A43 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		946E75961E9A0FDB00887A43 /* ImageCacheLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheLoader.swift; sourceTree = "<group>"; };
 		946E75981E9A20A400887A43 /* AppFirRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFirRef.swift; sourceTree = "<group>"; };
+		946E759A1E9A702F00887A43 /* NewsDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailVC.swift; sourceTree = "<group>"; };
+		946E75A31E9C8F8300887A43 /* HTMLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLLabel.h; sourceTree = "<group>"; };
+		946E75A41E9C8F8300887A43 /* HTMLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLLabel.m; sourceTree = "<group>"; };
 		949212631E95C730006FE088 /* e-news-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "e-news-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		949212661E95C730006FE088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		949212681E95C730006FE088 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +184,23 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		946E759C1E9C8F2700887A43 /* Obj-C */ = {
+			isa = PBXGroup;
+			children = (
+				946E759F1E9C8F4F00887A43 /* HTMLabeL */,
+			);
+			name = "Obj-C";
+			sourceTree = "<group>";
+		};
+		946E759F1E9C8F4F00887A43 /* HTMLabeL */ = {
+			isa = PBXGroup;
+			children = (
+				946E75A31E9C8F8300887A43 /* HTMLLabel.h */,
+				946E75A41E9C8F8300887A43 /* HTMLLabel.m */,
+			);
+			name = HTMLabeL;
+			sourceTree = "<group>";
+		};
 		9492125A1E95C730006FE088 = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +262,7 @@
 		949212941E95CCA1006FE088 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				946E759C1E9C8F2700887A43 /* Obj-C */,
 				949212951E95CCF2006FE088 /* ENewsPaper.h */,
 				9492129B1E9612C8006FE088 /* Extensions.swift */,
 				946E75961E9A0FDB00887A43 /* ImageCacheLoader.swift */,
@@ -258,6 +281,7 @@
 				9492129F1E961959006FE088 /* LibraryViewController.swift */,
 				940D1E871E976444005CE6C1 /* NewsListVC.swift */,
 				946E756F1E999E1300887A43 /* PhoneNumberViewController.swift */,
+				946E759A1E9A702F00887A43 /* NewsDetailVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -580,11 +604,13 @@
 				949212A91E96E556006FE088 /* LibraryCell.swift in Sources */,
 				946E75971E9A0FDB00887A43 /* ImageCacheLoader.swift in Sources */,
 				940D1E861E975E4A005CE6C1 /* ReadNewsCell.swift in Sources */,
+				946E759B1E9A702F00887A43 /* NewsDetailVC.swift in Sources */,
 				940D1E8C1E9768C0005CE6C1 /* ReadCell.swift in Sources */,
 				946E75881E99B39400887A43 /* PNPMenuDisabledTextField.swift in Sources */,
 				949212A01E961959006FE088 /* LibraryViewController.swift in Sources */,
 				946E75701E999E1300887A43 /* PhoneNumberViewController.swift in Sources */,
 				946E75931E99DD5800887A43 /* NewsPaper.swift in Sources */,
+				946E75A51E9C8F8300887A43 /* HTMLLabel.m in Sources */,
 				946E75871E99B39400887A43 /* PNPHighlightButton.swift in Sources */,
 				949212671E95C730006FE088 /* AppDelegate.swift in Sources */,
 				940D1E8A1E97665D005CE6C1 /* NewsListCell.swift in Sources */,
