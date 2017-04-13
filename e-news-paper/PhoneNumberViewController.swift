@@ -8,13 +8,15 @@
 
 import UIKit
 import NDParallaxIntroView
+import NVActivityIndicatorView
+import Firebase
 
 public protocol PhoneNumberViewControllerDelegate {
     func phoneNumberViewController(_ phoneNumberViewController: PhoneNumberViewController, didEnterPhoneNumber phoneNumber: String)
     func phoneNumberViewControllerDidCancel(_ phoneNumberViewController: PhoneNumberViewController)
 }
 
-public final class PhoneNumberViewController: UIViewController, CountriesViewControllerDelegate , NDIntroViewDelegate{
+public final class PhoneNumberViewController: UIViewController, CountriesViewControllerDelegate , NDIntroViewDelegate, NVActivityIndicatorViewable{
     public class func standardController() -> PhoneNumberViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhoneNumber") as! PhoneNumberViewController
     }
@@ -69,7 +71,7 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
     //MARK: Lifecycle
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationController?.navigationBar.isTranslucent = true
                 navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
                 navigationController?.navigationBar.shadowImage = UIImage()
@@ -189,21 +191,23 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
         return false
     }
     @IBAction func goButtonTapped(_ sender: Any) {
-        guard let phoneNumberLength = phoneNumberTextField.text?.length, let phoneCodeText = countryTextField.text else{
+        
+        guard let number = phoneNumber else {
             return
         }
+        let first4 = number.substring(to:(number.index((number.startIndex), offsetBy: 4)))
+        
         if !countryIsValid || !phoneNumberIsValid {
             print("Not Valid")
             showAlert(message: "Not A Valid Number")
             return
         }else{
-            if phoneCodeText == "+234" && phoneNumberLength == 10{
+            if first4 == "+234" && number.characters.count == 14{
                 print("Welcome to Nigeria")
                 
-                let mainVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTab") as! MainTabBarController
-                present(mainVc, animated: true, completion: nil)
+                saveMssisdn(msisdn: number)
                 
-            }else if phoneCodeText == "+220" && phoneNumberLength == 7{
+            }else if first4 == "+220" && number.characters.count == 13{
                 print("Welcome to Gambia")
             }else{
                 
@@ -231,6 +235,53 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
         
        // doneBarButtonItem.isEnabled = validCountry && validPhoneNumber
     }
+    
+    fileprivate func saveMssisdn(msisdn: String){
+        startAnimating(CGSize(width:100, height: 100), type: .ballPulse, color: .white, padding: 30)
+        
+        print(msisdn)
+        
+        AppFirRef.subscriberRef.queryOrdered(byChild: "msisdn").queryEqual(toValue: msisdn).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+        print(snapshot)
+            
+            if snapshot.childrenCount > 0{
+                print(snapshot)
+                
+                for case let snap as FIRDataSnapshot in snapshot.children{
+                    
+                    let subscriberKey = snap.key
+                    
+                    UserDefaults.standard.setUserKey(value: subscriberKey)
+                    
+                }
+                self.goToMain()
+            }else{
+                print(snapshot)
+                let newsubscriber = AppFirRef.subscriberRef.childByAutoId()
+                newsubscriber.child("msisdn").setValue(msisdn, withCompletionBlock: { (error, ref) in
+                    
+                    if error != nil{
+                        return
+                    }
+                    
+                    UserDefaults.standard.setUserKey(value: newsubscriber.key)
+                    
+                    
+                    self.goToMain()
+                })
+            }
+            
+            UserDefaults.standard.setMsisdn(value: msisdn)
+        })
+    }
+    
+    private func goToMain(){
+        stopAnimating()
+        let mainVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTab") as! MainTabBarController
+        present(mainVc, animated: true, completion: nil)
+    }
+    
 }
 
 private extension String {

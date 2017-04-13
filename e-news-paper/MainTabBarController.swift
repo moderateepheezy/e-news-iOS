@@ -15,6 +15,27 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if(isLoggedin()){
+            setupTab()
+        }else{
+            perform(#selector(showLoginController), with: nil,afterDelay: 0.01)
+        }
+        
+    }
+    
+    fileprivate func isLoggedin() -> Bool {
+        print("isLoggedin\(UserDefaults.standard.isLoggedIn())")
+        return UserDefaults.standard.isLoggedIn()
+    }
+    
+    func showLoginController(){
+        let log = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhoneNumber") as! PhoneNumberViewController
+        let loginVc = UINavigationController(rootViewController: log)
+        present(loginVc, animated: true, completion: nil)
+
+    }
+    
+    private func setupTab(){
         let unselectedColor = UIColor(red: 98, green: 95, blue: 95)
         
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: unselectedColor, NSFontAttributeName: UIFont.systemFont(ofSize: 14)], for: .normal)
@@ -38,10 +59,7 @@ class MainTabBarController: UITabBarController {
         
         tabBar.frame.size.width = self.view.frame.width + 4
         tabBar.frame.origin.x = -2
-        
     }
-    
-    
     
     
 }

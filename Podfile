@@ -8,6 +8,7 @@ target 'e-news-paper' do
   # Pods for e-news-paper
   pod 'NDParallaxIntroView'
   pod 'MaterialCard'
+  pod 'NVActivityIndicatorView'
   pod 'FirebaseUI', '~> 3.0'
 
   target 'e-news-paperTests' do

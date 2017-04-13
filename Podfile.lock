@@ -87,6 +87,7 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.9)
   - MaterialCard (1.1.4)
   - NDParallaxIntroView (1.0)
+  - NVActivityIndicatorView (3.6.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -99,6 +100,7 @@ DEPENDENCIES:
   - FirebaseUI (~> 3.0)
   - MaterialCard
   - NDParallaxIntroView
+  - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -119,10 +121,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   MaterialCard: 95fe84134e995d8688a88d2d305c520291910f6d
   NDParallaxIntroView: fecbf871a0fe9c72dc53e644d0735fb49dd87a78
+  NVActivityIndicatorView: c7c1c4300b418bd9ed06459e78d4df859ddbe31f
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
 
-PODFILE CHECKSUM: d70e22133e42eec98d52eadb2602aad4834d3721
+PODFILE CHECKSUM: b3f06659bc5938d5d14afd4af851fe02a025d9df
 
 COCOAPODS: 1.2.0

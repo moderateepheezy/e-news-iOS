@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    var isUserLogin = true
+    var isUserLogin = UserDefaults.standard.isUserDetailsLoggedIn()
     
     @IBOutlet weak var tableView: UITableView!
 

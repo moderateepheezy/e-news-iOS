@@ -14,5 +14,6 @@ final class AppFirRef {
     
     static var newsRef = baseRef.child("news")
     static var newspaperRef = baseRef.child("newspapers")
+    static var subscriberRef = baseRef.child("subscriber")
     static var userRef = baseRef.child("subscriber").child("user_id").child("users")
 }

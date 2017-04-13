@@ -14,9 +14,10 @@ class NewsDetailVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var isSubscribed = false
+    
     var news: News?
     
-    var vendor: NewsPaper?
     
     @IBOutlet weak var vendorNameLabel: UILabel!
     
@@ -28,8 +29,33 @@ class NewsDetailVC: UIViewController {
     @IBOutlet weak var subscribedButton: UIButton!
     
     
+    
+    var vendor: NewsPaper?{
+        didSet{
+            let key = vendor?.vendorKey
+            let userKey = UserDefaults.standard.getUserKey()
+            
+            AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(key!)
+                .observeSingleEvent(of: .value, with: { (snapshot) in
+                    if snapshot.key == key && !(snapshot.value  is NSNull){
+                        print(snapshot)
+                        self.isSubscribed = true
+                        self.subscribedButton.backgroundColor = .red
+                    }
+                    
+                })
+            
+            
+        }
+    }
+    
     @IBAction func subscribeButtonTapped(_ sender: Any) {
-        
+        isSubscribed = !isSubscribed
+        if(isSubscribed){
+            subscribedButton.backgroundColor = .red
+        }else{
+            subscribedButton.backgroundColor = .black
+        }
     }
     
     
@@ -43,6 +69,15 @@ class NewsDetailVC: UIViewController {
         // Do any additional setup after loading the view.
         
         vendorNameLabel.text = vendor?.paper_name
+        
+        if let created = news?.created_on {
+            
+            let date = NSDate(timeIntervalSince1970: TimeInterval(created))
+            print(date)
+            
+            
+            newsDateLabel.text = timeAgoSinceDate(date as Date, numericDates: true)
+        }
         
         
         if let imageUrl = vendor?.logo{
@@ -164,7 +199,12 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
         }else if indexPath.item == 1{
             return 200
         }else{
-            return 400
+            return 500
+            
+            //let updateCell = tableView.cellForRow(at: indexPath) as? NewsDescription
+            
+            
+            //return ((updateCell?.newsDescription.estimatedFrameForText(text: (updateCell?.newsDescription.text)!, textSize: 14))?.height)! + 20
         }
     }
 

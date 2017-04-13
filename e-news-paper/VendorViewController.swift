@@ -75,6 +75,7 @@ extension VendorViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.vendor = vendor
         
+        
         if let imageUrl = vendor.logo{
             let imageLoader = ImageCacheLoader()
             

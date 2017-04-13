@@ -11,8 +11,24 @@ import Firebase
 
 class VendorCell: UITableViewCell {
     
+    var isSubscribed = false
+    
     var vendor: NewsPaper? {
         didSet{
+            
+            let key = vendor?.vendorKey
+            let userKey = UserDefaults.standard.getUserKey()
+            
+            AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(key!)
+                .observeSingleEvent(of: .value, with: { (snapshot) in
+                    if snapshot.key == key && !(snapshot.value  is NSNull){
+                        print(snapshot)
+                        self.isSubscribed = true
+                        self.subscribedButton.backgroundColor = .red
+                    }
+                    
+                })
+            
             if let name = vendor?.paper_name{
                 vendorNameLabel.text = name
             }
@@ -34,8 +50,15 @@ class VendorCell: UITableViewCell {
     @IBOutlet weak var vendorNameLabel: UILabel!
 
     @IBAction func subscripedTapped(_ sender: Any) {
-        
+        isSubscribed = !isSubscribed
+        if(isSubscribed){
+            subscribe(vendorId: (vendor?.vendorKey)!)
+            subscribedButton.backgroundColor = .red
+        }else{
+            subscribedButton.backgroundColor = .black
+        }
     }
+    
     @IBOutlet weak var subscribedButton: UIButton!
     
     override func awakeFromNib() {
@@ -45,11 +68,38 @@ class VendorCell: UITableViewCell {
         subscribedButton.layer.cornerRadius = subscribedButton.frame.height / 2
         
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        vendorImageView.image = #imageLiteral(resourceName: "denews")
+        latestNewsLabel.text = ""
+        vendorNameLabel.text = ""
+        subscribedButton.backgroundColor = .black
+        
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func isVendorIsSbscribedTo(){
+        AppFirRef.subscriberRef.child("user_key")
+    }
+    
+    private func subscribe(vendorId: String){
+        let userKey = UserDefaults.standard.getUserKey()
+        AppFirRef.subscriberRef.child(userKey).queryOrdered(byChild: "susbscriptions").queryEqual(toValue: vendorId).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount.hashValue > 0 {
+                
+            }else{
+                AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).setValue(true)
+            }
+            
+        })
     }
 
 }

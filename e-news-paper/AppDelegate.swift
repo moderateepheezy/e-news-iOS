@@ -22,11 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         
         FIRDatabase.database().persistenceEnabled = true
-//        
-//        window =  UIWindow(frame: UIScreen.main.bounds)
-//        window?.makeKeyAndVisible()
         
-        //window?.rootViewController = PhoneNumberViewController()
+        window =  UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        window?.rootViewController = MainTabBarController()
         
         return true
     }
