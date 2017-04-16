@@ -41,6 +41,7 @@ class NewsDetailVC: UIViewController {
                         print(snapshot)
                         self.isSubscribed = true
                         self.subscribedButton.backgroundColor = .red
+                        self.subscribedButton.setTitle("UnSubscribe", for: .normal)
                     }
                     
                 })
@@ -50,11 +51,13 @@ class NewsDetailVC: UIViewController {
     }
     
     @IBAction func subscribeButtonTapped(_ sender: Any) {
-        isSubscribed = !isSubscribed
         if(isSubscribed){
-            subscribedButton.backgroundColor = .red
-        }else{
+            isSubscribed = false
+            self.subscribedButton.setTitle("Subscribe", for: .normal)
             subscribedButton.backgroundColor = .black
+            unSubscribe(vendorId: (vendor?.vendorKey)!)
+        }else{
+            timelyConfig()
         }
     }
     
@@ -66,7 +69,6 @@ class NewsDetailVC: UIViewController {
         tableView.dataSource = self
         
         subscribedButton.layer.cornerRadius = subscribedButton.frame.height / 2
-        // Do any additional setup after loading the view.
         
         vendorNameLabel.text = vendor?.paper_name
         
@@ -97,6 +99,109 @@ class NewsDetailVC: UIViewController {
             
         }
         
+    }
+    
+    func timelyConfig(){
+        
+        
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        let attributedString = NSAttributedString(string: "", attributes: [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 15), //your font here
+            NSForegroundColorAttributeName : UIColor.black
+            ])
+        
+        optionMenu.setValue(attributedString, forKey: "attributedTitle")
+        
+        let dailyAction = UIAlertAction(title: "Daily", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subType()
+        })
+        let weeklyAction = UIAlertAction(title: "Weekly", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subType()
+        })
+        
+        let monthlyAction = UIAlertAction(title: "Monthly", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subType()
+        })
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        
+        
+        optionMenu.addAction(dailyAction)
+        optionMenu.addAction(weeklyAction)
+        optionMenu.addAction(monthlyAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func subType(){
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        let attributedString = NSAttributedString(string: "Choose Option", attributes: [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 15), //your font here
+            NSForegroundColorAttributeName : UIColor.black
+            ])
+        
+        optionMenu.setValue(attributedString, forKey: "attributedTitle")
+        
+        let directAction = UIAlertAction(title: "Direct Billing", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subscribe(vendorId: (self.vendor?.vendorKey)!)
+            self.subscribedButton.backgroundColor = .red
+            self.isSubscribed = true
+        })
+        let mobileAction = UIAlertAction(title: "Mobile Money", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subscribe(vendorId: (self.vendor?.vendorKey)!)
+            self.subscribedButton.backgroundColor = .red
+            self.isSubscribed = true
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        
+        
+        
+        
+        optionMenu.addAction(directAction)
+        optionMenu.addAction(mobileAction)
+        optionMenu.addAction(cancelAction)
+        
+        
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    private func subscribe(vendorId: String){
+        let userKey = UserDefaults.standard.getUserKey()
+        AppFirRef.subscriberRef.child(userKey).queryOrdered(byChild: "susbscriptions").queryEqual(toValue: vendorId).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount.hashValue > 0 {
+                
+            }else{
+                AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).setValue(true)
+            }
+            
+        })
+    }
+    
+    private func unSubscribe(vendorId: String){
+        let userKey = UserDefaults.standard.getUserKey()
+        AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.key == vendorId{
+                AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).removeValue()
+            }
+        })
     }
 
 }
@@ -135,10 +240,18 @@ class NewsImage: UITableViewCell {
 class NewsDescription: UITableViewCell{
     
     @IBOutlet weak var newsDescription: UILabel!
+    @IBOutlet weak var showMoreButton: UIButton!
     
+    @IBAction func showMoreTapped(_ sender: Any) {
+        
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        showMoreButton.layer.borderColor = UIColor.black.cgColor
+        showMoreButton.layer.borderWidth = 2
+        showMoreButton.layer.cornerRadius = 5
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -199,15 +312,18 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
         }else if indexPath.item == 1{
             return 200
         }else{
-            return 500
-            
-            //let updateCell = tableView.cellForRow(at: indexPath) as? NewsDescription
-            
-            
-            //return ((updateCell?.newsDescription.estimatedFrameForText(text: (updateCell?.newsDescription.text)!, textSize: 14))?.height)! + 20
+            guard let desc = news?.content else { return 10.01 }
+            return estimatedFrameForText(text: desc, textSize: 17) - 300
         }
     }
 
+    func estimatedFrameForText(text: String, textSize: CGFloat) -> CGFloat{
+        
+        let size = CGSize(width: 200, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin)
+        
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: textSize)], context: nil).height
+    }
     
     
 }
@@ -222,12 +338,5 @@ extension UILabel{
         label.text = self.text
         label.sizeToFit()
     }
-    
-    func estimatedFrameForText(text: String, textSize: CGFloat) -> CGRect{
-        
-        let size = CGSize(width: 200, height: 1000)
-        let options = NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin)
-        
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: textSize)], context: nil)
-    }
+
 }

@@ -17,6 +17,7 @@
 		940D1E8A1E97665D005CE6C1 /* NewsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D1E891E97665D005CE6C1 /* NewsListCell.swift */; };
 		940D1E8C1E9768C0005CE6C1 /* ReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D1E8B1E9768C0005CE6C1 /* ReadCell.swift */; };
 		942CEF5B1E9DCCF6008B49F6 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CEF5A1E9DCCF6008B49F6 /* ExpandableLabel.swift */; };
+		942CEF7B1EA04E53008B49F6 /* VendorSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CEF7A1EA04E53008B49F6 /* VendorSettingsVC.swift */; };
 		946E75701E999E1300887A43 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E756F1E999E1300887A43 /* PhoneNumberViewController.swift */; };
 		946E75811E99B36700887A43 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75801E99B36700887A43 /* CountriesViewController.swift */; };
 		946E75861E99B39400887A43 /* PhoneNumberPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 946E75821E99B39400887A43 /* PhoneNumberPicker.storyboard */; };
@@ -81,6 +82,7 @@
 		940D1E891E97665D005CE6C1 /* NewsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListCell.swift; sourceTree = "<group>"; };
 		940D1E8B1E9768C0005CE6C1 /* ReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadCell.swift; sourceTree = "<group>"; };
 		942CEF5A1E9DCCF6008B49F6 /* ExpandableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
+		942CEF7A1EA04E53008B49F6 /* VendorSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendorSettingsVC.swift; sourceTree = "<group>"; };
 		946E756F1E999E1300887A43 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
 		946E75801E99B36700887A43 /* CountriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		946E75821E99B39400887A43 /* PhoneNumberPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhoneNumberPicker.storyboard; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				940D1E871E976444005CE6C1 /* NewsListVC.swift */,
 				946E756F1E999E1300887A43 /* PhoneNumberViewController.swift */,
 				946E759A1E9A702F00887A43 /* NewsDetailVC.swift */,
+				942CEF7A1EA04E53008B49F6 /* VendorSettingsVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				949212A71E962A9C006FE088 /* VendorCell.swift in Sources */,
 				946E75991E9A20A400887A43 /* AppFirRef.swift in Sources */,
 				949212691E95C730006FE088 /* ProfileViewController.swift in Sources */,
+				942CEF7B1EA04E53008B49F6 /* VendorSettingsVC.swift in Sources */,
 				946E75811E99B36700887A43 /* CountriesViewController.swift in Sources */,
 				946E75891E99B39400887A43 /* PNPSideBordered.swift in Sources */,
 				940D1E881E976444005CE6C1 /* NewsListVC.swift in Sources */,

@@ -53,7 +53,18 @@ class NewsListVC: UIViewController {
                 newsVc.vendor = vendor
                 newsVc.hidesBottomBarWhenPushed = true
             }
+        }else if segue.identifier == "ShowSettings"{
+            if let vendor = sender as? NewsPaper{
+                let settingsVc = segue.destination as! VendorSettingsVC
+                settingsVc.vendor = vendor
+            }
         }
+    }
+    
+    
+    @IBAction func settingsTapped(_ sender: Any) {
+    
+        self.performSegue(withIdentifier: "ShowSettings", sender: vendor)
     }
 
 

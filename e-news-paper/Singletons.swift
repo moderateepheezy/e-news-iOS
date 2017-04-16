@@ -11,6 +11,8 @@ import Foundation
 class ENewsApp {
     
     static let sharedInstance = ENewsApp()
+    
+    
 
 }
 
