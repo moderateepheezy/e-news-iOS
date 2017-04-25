@@ -962,7 +962,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4n-Ec-RdY">
-                                <rect key="frame" x="69.5" y="415" width="236" height="50"/>
+                                <rect key="frame" x="70" y="415" width="236" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="236" id="Lpr-sj-I8N"/>
@@ -1015,7 +1015,7 @@
                                 </connections>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unnamed" translatesAutoresizingMaskIntoConstraints="NO" id="fAj-gU-6nz">
-                                <rect key="frame" x="137.5" y="64" width="100" height="100"/>
+                                <rect key="frame" x="138" y="64" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="7gY-hT-ipe"/>
                                     <constraint firstAttribute="width" constant="100" id="k9d-7V-gUm"/>

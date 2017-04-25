@@ -85,7 +85,7 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
         
         goButton.layer.cornerRadius = goButton.frame.height / 2
         
-        phoneNumberTextField.becomeFirstResponder()
+        //phoneNumberTextField.becomeFirstResponder()
     }
     
     private func startIntro(){
