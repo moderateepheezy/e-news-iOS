@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -24,6 +24,14 @@ class ProfileViewController: UIViewController {
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 //        navigationController?.navigationBar.shadowImage = UIImage()
         
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+    
+        tableView.reloadData()
     }
 
 
@@ -39,6 +47,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
         if indexPath.item == 0{
             if isUserLogin {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "loggedIn", for: indexPath) as! LoggedInCell
+                
+                let user = UserDefaults.standard.fetchUserDetails()
+                
+                cell.usernameLabel.text = user.username
+                cell.userEmailLabel.text = user.email
+                cell.userPhoneNumberLabel.text = user.msisdn
                 
                 return cell
             

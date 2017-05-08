@@ -13,9 +13,24 @@ class NewsListCell: UITableViewCell {
     var news: News?{
         didSet{
             newsTitleLabel.text = news?.caption
-            
+            if let created = news?.created_on {
+                
+                let epocTime = TimeInterval(created)
+                
+                print(epocTime)
+                
+                let date = Date(timeIntervalSince1970: epocTime / 1000)
+                print(date)
+                
+                
+                timeAgoLabel.text = timeAgoSinceDate(date)
+                
+                
+                getCommentsCount(key: (news?.newsKey)!, label: numberOfCommentLabel)
+            }
         }
     }
+    @IBOutlet weak var timeAgoLabel: UILabel!
     
     @IBOutlet weak var newsImageView: UIImageView!
 
@@ -34,6 +49,20 @@ class NewsListCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func getCommentsCount(key: String, label: UILabel){
+        
+        
+        AppFirRef.commentsRef.child(key).observe(.value, with: { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                label.text =  "\(snapshot.childrenCount)"
+            }else{
+                label.text = "0"
+            }
+            
+        })
     }
 
 }

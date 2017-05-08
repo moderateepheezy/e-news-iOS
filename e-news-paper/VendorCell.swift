@@ -38,7 +38,8 @@ class VendorCell: UITableViewCell {
                     guard let value = snap.value as? [String : Any] else { return }
                     
                     let news = News(value: value, newsKey: snap.key)
-                    self.latestNewsLabel.text = news.caption
+                    guard let caption = news.caption else { return }
+                    self.latestNewsLabel.text =  "Latest: " + caption
                 }
             })
         }

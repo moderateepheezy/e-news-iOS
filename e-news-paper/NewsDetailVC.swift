@@ -14,7 +14,7 @@ class NewsDetailVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var isSubscribed = false
+    static var isSubscribed = false
     
     var news: News?
     
@@ -39,9 +39,11 @@ class NewsDetailVC: UIViewController {
                 .observeSingleEvent(of: .value, with: { (snapshot) in
                     if snapshot.key == key && !(snapshot.value  is NSNull){
                         print(snapshot)
-                        self.isSubscribed = true
+                        NewsDetailVC.isSubscribed = true
                         self.subscribedButton.backgroundColor = .red
                         self.subscribedButton.setTitle("UnSubscribe", for: .normal)
+                        
+                        
                     }
                     
                 })
@@ -51,8 +53,8 @@ class NewsDetailVC: UIViewController {
     }
     
     @IBAction func subscribeButtonTapped(_ sender: Any) {
-        if(isSubscribed){
-            isSubscribed = false
+        if(NewsDetailVC.isSubscribed){
+            NewsDetailVC.isSubscribed = false
             self.subscribedButton.setTitle("Subscribe", for: .normal)
             subscribedButton.backgroundColor = .black
             unSubscribe(vendorId: (vendor?.vendorKey)!)
@@ -74,11 +76,15 @@ class NewsDetailVC: UIViewController {
         
         if let created = news?.created_on {
             
-            let date = NSDate(timeIntervalSince1970: TimeInterval(created))
+            let epocTime = TimeInterval(created)
+            
+            print(epocTime)
+            
+            let date = Date(timeIntervalSince1970: epocTime / 1000)
             print(date)
             
             
-            newsDateLabel.text = timeAgoSinceDate(date as Date, numericDates: true)
+            newsDateLabel.text = timeAgoSinceDate(date)
         }
         
         
@@ -99,6 +105,27 @@ class NewsDetailVC: UIViewController {
             
         }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if let imageUrl = vendor?.logo{
+            
+            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            vendorStorageRef.downloadURL(completion: { (url, error) in
+                if error != nil{
+                    return
+                }
+                
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 40))
+                imageView.contentMode = .scaleAspectFit
+                
+                imageView.or_noPlaceHolderSetWithURL(url: url! as NSURL)
+                self.navigationItem.titleView = imageView
+                
+            })
+            
+        }
     }
     
     func timelyConfig(){
@@ -156,13 +183,14 @@ class NewsDetailVC: UIViewController {
             (alert: UIAlertAction!) -> Void in
             self.subscribe(vendorId: (self.vendor?.vendorKey)!)
             self.subscribedButton.backgroundColor = .red
-            self.isSubscribed = true
+            NewsDetailVC.isSubscribed = true
         })
         let mobileAction = UIAlertAction(title: "Mobile Money", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.subscribe(vendorId: (self.vendor?.vendorKey)!)
             self.subscribedButton.backgroundColor = .red
-            self.isSubscribed = true
+            
+            NewsDetailVC.isSubscribed = true
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -239,6 +267,29 @@ class NewsImage: UITableViewCell {
 
 class NewsDescription: UITableViewCell{
     
+    var news: News?{
+        didSet{
+            
+        }
+    }
+    
+    var isSubscribed: Bool?{
+        didSet{
+            if isSubscribed! {
+                
+                UIView.animate(withDuration: 0.34, animations: { 
+                    self.newsDescription.heightAnchor.constraint(equalToConstant: self.frame.height).isActive = true
+                    self.newsDescription.requiredHeight()
+                    self.showMoreButton.alpha = 0
+                })
+            }else{
+                newsDescription.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                newsDescription.numberOfLines = 3
+                showMoreButton.alpha = 1
+            }
+        }
+    }
+    
     @IBOutlet weak var newsDescription: UILabel!
     @IBOutlet weak var showMoreButton: UIButton!
     
@@ -277,20 +328,17 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImage", for: indexPath) as! NewsImage
             
             if let imageUrl = news?.thumbnail{
-                let imageLoader = ImageCacheLoader()
                 
                 let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
                 vendorStorageRef.downloadURL(completion: { (url, error) in
                     if error != nil{
                         return
                     }
-                    
-                    imageLoader.obtainImageWithPath(imagePath: (url?.absoluteString)!) { (image) in
                         // Before assigning the image, check whether the current cell is visible for ensuring that it's right cell
                         if let updateCell = tableView.cellForRow(at: indexPath) as? NewsImage {
-                            updateCell.newsImageView.image = image
+                            updateCell.newsImageView.or_setImageWithURL(url: url! as NSURL)
                         }
-                    }
+                    
                     
                 })
                 
@@ -300,6 +348,25 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsDescription", for: indexPath) as! NewsDescription
+            
+            let key = vendor?.vendorKey
+            let userKey = UserDefaults.standard.getUserKey()
+            
+            AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(key!)
+                .observeSingleEvent(of: .value, with: { (snapshot) in
+                    if snapshot.key == key && !(snapshot.value  is NSNull){
+                        cell.isSubscribed = true
+                        
+                    }else{
+                        cell.isSubscribed = false
+                    }
+                    
+                })
+            
+            
+            
+            cell.news = news
+            
             cell.newsDescription.text = news?.content
             cell.newsDescription.requiredHeight()
             return cell
@@ -339,4 +406,27 @@ extension UILabel{
         label.sizeToFit()
     }
 
+}
+
+extension Date {
+    
+    func getElapsedInterval() -> String {
+        
+        let interval = Calendar.current.dateComponents([.year, .month, .day], from: self, to: Date())
+        
+        if let year = interval.year, year > 0 {
+            return year == 1 ? "\(year)" + " " + "year" :
+                "\(year)" + " " + "years"
+        } else if let month = interval.month, month > 0 {
+            return month == 1 ? "\(month)" + " " + "month" :
+                "\(month)" + " " + "months"
+        } else if let day = interval.day, day > 0 {
+            return day == 1 ? "\(day)" + " " + "day" :
+                "\(day)" + " " + "days"
+        } else {
+            return "a moment ago"
+            
+        }
+        
+    }
 }

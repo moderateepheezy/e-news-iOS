@@ -10,7 +10,8 @@ target 'e-news-paper' do
   pod 'MaterialCard'
   pod 'NVActivityIndicatorView'
   pod 'FirebaseUI', '~> 3.0'
-
+  pod 'SDWebImage', '~>4.0.0'
+  pod 'Google/SignIn'
   target 'e-news-paperTests' do
     inherit! :search_paths
     # Pods for testing

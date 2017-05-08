@@ -54,6 +54,8 @@ class LibraryViewController: UIViewController {
         
         
     }
+    
+    
 
 
 }
@@ -67,21 +69,17 @@ extension LibraryViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.set =  s
         
         if let imageUrl = s.logo{
-            let imageLoader = ImageCacheLoader()
             
             let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return
                 }
-                
-                imageLoader.obtainImageWithPath(imagePath: (url?.absoluteString)!) { (image) in
-                    // Before assigning the image, check whether the current cell is visible for ensuring that it's right cell
                     
                     if let updateCell = collectionView.cellForItem(at: indexPath) as? LibraryCell {
-                        updateCell.vendorImage.image = image
+                        updateCell.vendorImage.sd_setImage(with: url, placeholderImage: UIImage(named: "denews"))
                     }
-                }
+                
                 
             })
             
@@ -135,9 +133,15 @@ extension LibraryViewController : UICollectionViewDelegateFlowLayout {
         if segue.identifier == "showNews"{
             if let vendor = sender as? NewsPaper{
                 let newsListVc = segue.destination as! NewsListVC
+                let backItem = UIBarButtonItem()
+                backItem.title = ""
+                navigationController?.navigationBar.barTintColor = .white
+                navigationController?.navigationBar.tintColor = .black
+                self.navigationItem.backBarButtonItem = backItem
                 newsListVc.vendor = vendor
                 newsListVc.hidesBottomBarWhenPushed = true
             }
         }
     }
 }
+

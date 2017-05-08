@@ -63,6 +63,11 @@ PODS:
   - FirebaseUI/Twitter (3.1.1):
     - FirebaseUI/Auth
     - TwitterKit (~> 2.4)
+  - Google/Core (3.0.3):
+    - FirebaseAnalytics (~> 3.2)
+  - Google/SignIn (3.0.3):
+    - Google/Core
+    - GoogleSignIn (~> 4.0)
   - GoogleSignIn (4.0.2):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
@@ -98,9 +103,11 @@ PODS:
 
 DEPENDENCIES:
   - FirebaseUI (~> 3.0)
+  - Google/SignIn
   - MaterialCard
   - NDParallaxIntroView
   - NVActivityIndicatorView
+  - SDWebImage (~> 4.0.0)
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -115,6 +122,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
   FirebaseUI: 6e99ff95e369f5858232e4f65bff215458fe8469
+  Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
   GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
@@ -126,6 +134,6 @@ SPEC CHECKSUMS:
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
 
-PODFILE CHECKSUM: b3f06659bc5938d5d14afd4af851fe02a025d9df
+PODFILE CHECKSUM: 721ef7b615d994dd56d717964490435d923ed1a1
 
 COCOAPODS: 1.2.0

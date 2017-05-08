@@ -18,6 +18,7 @@
 		940D1E8C1E9768C0005CE6C1 /* ReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D1E8B1E9768C0005CE6C1 /* ReadCell.swift */; };
 		942CEF5B1E9DCCF6008B49F6 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CEF5A1E9DCCF6008B49F6 /* ExpandableLabel.swift */; };
 		942CEF7B1EA04E53008B49F6 /* VendorSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CEF7A1EA04E53008B49F6 /* VendorSettingsVC.swift */; };
+		943A705A1EBEBDDB004DC720 /* EmptyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943A70591EBEBDDB004DC720 /* EmptyBackgroundView.swift */; };
 		946E75701E999E1300887A43 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E756F1E999E1300887A43 /* PhoneNumberViewController.swift */; };
 		946E75811E99B36700887A43 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75801E99B36700887A43 /* CountriesViewController.swift */; };
 		946E75861E99B39400887A43 /* PhoneNumberPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 946E75821E99B39400887A43 /* PhoneNumberPicker.storyboard */; };
@@ -83,6 +84,7 @@
 		940D1E8B1E9768C0005CE6C1 /* ReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadCell.swift; sourceTree = "<group>"; };
 		942CEF5A1E9DCCF6008B49F6 /* ExpandableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		942CEF7A1EA04E53008B49F6 /* VendorSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendorSettingsVC.swift; sourceTree = "<group>"; };
+		943A70591EBEBDDB004DC720 /* EmptyBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBackgroundView.swift; sourceTree = "<group>"; };
 		946E756F1E999E1300887A43 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
 		946E75801E99B36700887A43 /* CountriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		946E75821E99B39400887A43 /* PhoneNumberPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhoneNumberPicker.storyboard; sourceTree = "<group>"; };
@@ -178,6 +180,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		943A70581EBEBDC6004DC720 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				943A70591EBEBDDB004DC720 /* EmptyBackgroundView.swift */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
 		946E75711E99B27D00887A43 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +242,7 @@
 		949212651E95C730006FE088 /* e-news-paper */ = {
 			isa = PBXGroup;
 			children = (
+				943A70581EBEBDC6004DC720 /* CustomViews */,
 				946E75711E99B27D00887A43 /* Model */,
 				949212A31E962A0E006FE088 /* Views */,
 				949212961E9608C0006FE088 /* Controllers */,
@@ -616,6 +627,7 @@
 				946E75971E9A0FDB00887A43 /* ImageCacheLoader.swift in Sources */,
 				940D1E861E975E4A005CE6C1 /* ReadNewsCell.swift in Sources */,
 				946E759B1E9A702F00887A43 /* NewsDetailVC.swift in Sources */,
+				943A705A1EBEBDDB004DC720 /* EmptyBackgroundView.swift in Sources */,
 				940D1E8C1E9768C0005CE6C1 /* ReadCell.swift in Sources */,
 				946E75881E99B39400887A43 /* PNPMenuDisabledTextField.swift in Sources */,
 				949212A01E961959006FE088 /* LibraryViewController.swift in Sources */,

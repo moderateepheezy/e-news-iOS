@@ -10,6 +10,27 @@ import UIKit
 
 class ReadCell: UITableViewCell {
 
+    var news: News? {
+        didSet{
+            if let newTitle = news?.caption{
+                newsTitleLabel.text = newTitle
+            }
+            
+            if let vendorId = news?.newspaper_id{
+                
+                AppFirRef.newspaperRef.child(vendorId).observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    guard let value = snapshot.value as? [String: Any] else {
+                        return
+                    }
+                    
+                    let vendor = NewsPaper(value: value, vendorKey: snapshot.key)
+                    self.vendorNameLabel.text = vendor.paper_name
+                })
+            }
+        }
+    }
+    
     @IBOutlet weak var newsImageView: UIImageView!
     
     @IBOutlet weak var newsTitleLabel: UILabel!
