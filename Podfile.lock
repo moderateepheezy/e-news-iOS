@@ -91,6 +91,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.9):
     - GTMSessionFetcher/Core (= 1.1.9)
   - MaterialCard (1.1.4)
+  - MIBadgeButton-Swift (0.5)
   - NDParallaxIntroView (1.0)
   - NVActivityIndicatorView (3.6.0)
   - SDWebImage (4.0.0):
@@ -105,9 +106,20 @@ DEPENDENCIES:
   - FirebaseUI (~> 3.0)
   - Google/SignIn
   - MaterialCard
+  - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
   - NDParallaxIntroView
   - NVActivityIndicatorView
   - SDWebImage (~> 4.0.0)
+
+EXTERNAL SOURCES:
+  MIBadgeButton-Swift:
+    :branch: master
+    :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
+
+CHECKOUT OPTIONS:
+  MIBadgeButton-Swift:
+    :commit: 3c2638d2e6e46ec2e6dd978d8ada8863df3df5e6
+    :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -128,12 +140,13 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   MaterialCard: 95fe84134e995d8688a88d2d305c520291910f6d
+  MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
   NDParallaxIntroView: fecbf871a0fe9c72dc53e644d0735fb49dd87a78
   NVActivityIndicatorView: c7c1c4300b418bd9ed06459e78d4df859ddbe31f
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
 
-PODFILE CHECKSUM: 721ef7b615d994dd56d717964490435d923ed1a1
+PODFILE CHECKSUM: 7b29428c5f03397c5c1af32435d2b440b886434c
 
 COCOAPODS: 1.2.0

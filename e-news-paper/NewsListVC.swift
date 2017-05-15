@@ -268,6 +268,25 @@ extension UIImageView {
         image = cachedImage
     }
     
+    
+    func or_setProfileImageWithURL(url: NSURL) {
+        
+        
+        // Look inside the SD Image Cache to see if our URL has already been stored
+        let imageManager = SDWebImageManager.shared()
+        let key = imageManager.cacheKey(for: url as URL)
+        
+        // If not, provide a useful error message, or optionally raise an exception
+        guard let cachedImage = imageManager.imageCache?.imageFromMemoryCache(forKey: key) else {
+            print("Detected a un-stubbed image request for URL: \(url)")
+            sd_setImage(with: url as URL, placeholderImage: UIImage(named: "pp"))
+            return
+        }
+        
+        // Synchronously set the cached image
+        image = cachedImage
+    }
+    
     func or_noPlaceHolderSetWithURL(url: NSURL){
         // Pass directly to SDWebImage if not in testing environment
         

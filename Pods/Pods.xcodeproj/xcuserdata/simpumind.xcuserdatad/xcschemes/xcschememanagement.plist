@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MIBadgeButton-Swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MaterialCard.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -82,7 +87,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>34E1BEE5B9151B6FF42B51C88D1AF746</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3EDFE4052B5DE7D509935AC0774CB135</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4110553406E5423004436E4727E823E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>462C9EE2F9501B29533A6A4528CED22E</key>
+		<key>60ACA7862928A1693232C20821A671AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -108,11 +123,6 @@
 			<true/>
 		</dict>
 		<key>932DE4EC99FA9D602463550758DE0278</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A075ADA89A447B5D69272EB5665D1D33</key>
 		<dict>
 			<key>primary</key>
 			<true/>

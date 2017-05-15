@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController {
     
     var isUserLogin = UserDefaults.standard.isUserDetailsLoggedIn()
     
+    var user: User?
+    
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -24,16 +26,47 @@ class ProfileViewController: UIViewController {
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 //        navigationController?.navigationBar.shadowImage = UIImage()
         
+        let settingBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_settings"), style: .plain, target: self, action: #selector(goSettings))
+        settingBarButton.tintColor = UIColor.black
+        
+        getUser()
+        
+        
+        self.navigationItem.rightBarButtonItems = [ settingBarButton]
+        
     }
     
+    
+    @objc private func goSettings(){
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getUser()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        
-    
-        tableView.reloadData()
+        getUser()
     }
-
+    
+    
+    
+    func getUser() {
+        let userKey = UserDefaults.standard.getUserKey()
+        AppFirRef.subscriberRef.child(userKey).child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.value is NSNull{
+                
+            }else{
+                let userd = User(value: snapshot.value as! [String : Any])
+                UserDefaults.standard.saveUserDetails(user: userd)
+                
+                let user = UserDefaults.standard.fetchUserDetails()
+                self.user = user
+                self.tableView.reloadData()
+            }
+        })
+    }
 
 }
 
@@ -45,7 +78,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.item == 0{
-            if isUserLogin {
+            
+            print(UserDefaults.standard.isUserDetailsLoggedIn())
+            if UserDefaults.standard.isUserDetailsLoggedIn() {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "loggedIn", for: indexPath) as! LoggedInCell
                 
                 let user = UserDefaults.standard.fetchUserDetails()
@@ -54,11 +89,29 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
                 cell.userEmailLabel.text = user.email
                 cell.userPhoneNumberLabel.text = user.msisdn
                 
+                
+                
+                let url = NSURL(fileURLWithPath: user.profileImage!)
+                
+                cell.userProfileImageView.or_setProfileImageWithURL(url: url)
+                
                 return cell
             
-            }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "notLoggedIN", for: indexPath) as! NotLoginCell
+            }else if let user = self.user,
+                let cell = tableView.dequeueReusableCell(withIdentifier: "loggedIn", for: indexPath) as? LoggedInCell {
                 
+                let url = NSURL(fileURLWithPath: user.profileImage!)
+                
+                cell.usernameLabel.text = user.username
+                cell.userEmailLabel.text = user.email
+                cell.userPhoneNumberLabel.text = user.msisdn
+                cell.userProfileImageView.or_setProfileImageWithURL(url: url)
+                
+                return cell
+                
+            }else if let cell = tableView.dequeueReusableCell(withIdentifier: "notLoggedIN", for: indexPath) as? NotLoginCell {
+                
+                cell.profileController = self
                 return cell
             }
         }

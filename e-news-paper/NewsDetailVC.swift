@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import MIBadgeButton_Swift
 
 
 class NewsDetailVC: UIViewController {
@@ -70,6 +71,12 @@ class NewsDetailVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        let commentBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_comment"), style: .plain, target: self, action: #selector(pushToComment))
+        commentBarButton.tintColor = UIColor.black
+        
+        
+        self.navigationItem.rightBarButtonItems = [ commentBarButton]
+        
         subscribedButton.layer.cornerRadius = subscribedButton.frame.height / 2
         
         vendorNameLabel.text = vendor?.paper_name
@@ -104,6 +111,14 @@ class NewsDetailVC: UIViewController {
             })
             
         }
+        
+    }
+    
+    @objc private func pushToComment(){
+        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CommentsVC") as! CommentsVC
+        vc.news = news
+        navigationController?.pushViewController(vc, animated: true)
         
     }
     

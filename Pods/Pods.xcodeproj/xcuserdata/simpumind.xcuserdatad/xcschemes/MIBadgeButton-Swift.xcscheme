@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4110553406E5423004436E4727E823E8"
-               BuildableName = "Pods_e_news_paper.framework"
-               BlueprintName = "Pods-e-news-paper"
+               BlueprintIdentifier = "34E1BEE5B9151B6FF42B51C88D1AF746"
+               BuildableName = "MIBadgeButton_Swift.framework"
+               BlueprintName = "MIBadgeButton-Swift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4110553406E5423004436E4727E823E8"
-            BuildableName = "Pods_e_news_paper.framework"
-            BlueprintName = "Pods-e-news-paper"
+            BlueprintIdentifier = "34E1BEE5B9151B6FF42B51C88D1AF746"
+            BuildableName = "MIBadgeButton_Swift.framework"
+            BlueprintName = "MIBadgeButton-Swift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

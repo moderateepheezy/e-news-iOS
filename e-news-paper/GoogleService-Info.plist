@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>850485727960-avv0chq3l1nvatglp79c007rmbocbgmt.apps.googleusercontent.com</string>
+	<string>850485727960-ls846mshpo90gno61cbtbq2f7ovp4qru.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.850485727960-avv0chq3l1nvatglp79c007rmbocbgmt</string>
+	<string>com.googleusercontent.apps.850485727960-ls846mshpo90gno61cbtbq2f7ovp4qru</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBRuuhb6KUJ-MbniRv0Yg7mJBlJMqMbmzE</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.simpumind.e-news-paper</string>
+	<string>com.simpumind.e-news-papers</string>
 	<key>PROJECT_ID</key>
 	<string>pipein-4a706</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:850485727960:ios:15cadfc819968f45</string>
+	<string>1:850485727960:ios:c755652cfd2c4128</string>
 	<key>DATABASE_URL</key>
 	<string>https://pipein-4a706.firebaseio.com</string>
 </dict>

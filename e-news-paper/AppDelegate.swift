@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,12 +31,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = MainTabBarController()
         
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        //Optionally add to ensure your credentials are valid:
+        
+        FBSDKLoginManager.renewSystemCredentials { (accoutCredentials, error) in
+            
+        }
+        
+        
         return true
     }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        FBSDKAppEvents.activateApp()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -56,17 +68,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        if #available(iOS 9.0, *) {
-            return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation] as? String)
-        } else {
-            // Fallback on earlier versions
-        }
-        return true
+        
+        let googleDidHandle = GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation] as? String)
+        
+        let facebookDidHandle = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        return googleDidHandle || facebookDidHandle
+        
     }
+    
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
-        return GIDSignIn.sharedInstance().handle(url,sourceApplication: sourceApplication,annotation: annotation)
+        let googleDidHandle = GIDSignIn.sharedInstance().handle(url,
+                                                                   sourceApplication: sourceApplication,
+                                                                   annotation: annotation)
+        
+        let facebookDidHandle = FBSDKApplicationDelegate.sharedInstance().application(
+            application,
+            open: url,
+            sourceApplication: sourceApplication,
+            annotation: annotation)
+        
+        return googleDidHandle || facebookDidHandle
     }
 
 

@@ -9,14 +9,30 @@
 import UIKit
 import GoogleSignIn
 import Google
+import FBSDKLoginKit
 
 class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
-
+    
+    var dict : [String : AnyObject]!
+    
+    var profileController: ProfileViewController?
     
     
     @IBAction func facebookLoginTapped(_ sender: Any) {
         
-        
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: profileController) { (result, error) in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                if fbloginresult.grantedPermissions != nil {
+                    if(fbloginresult.grantedPermissions.contains("email"))
+                    {
+                        self.getFBUserData()
+                        fbLoginManager.logOut()
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func googleLoginTapped(_ sender: Any) {
@@ -29,7 +45,7 @@ class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
             //Handle your error
         }else {
             GIDSignIn.sharedInstance().shouldFetchBasicProfile = true
-            GIDSignIn.sharedInstance().clientID = "850485727960-avv0chq3l1nvatglp79c007rmbocbgmt.apps.googleusercontent.com"
+            GIDSignIn.sharedInstance().clientID = "850485727960-ls846mshpo90gno61cbtbq2f7ovp4qru.apps.googleusercontent.com"
             GIDSignIn.sharedInstance().delegate = self
             GIDSignIn.sharedInstance().uiDelegate = self
             
@@ -37,6 +53,53 @@ class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
             GIDSignIn.sharedInstance().signIn()
         }
         
+    }
+    
+    func getFBUserData(){
+        if((FBSDKAccessToken.current()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                if (error == nil){
+                    self.dict = result as! [String : AnyObject]
+                    print(result!)
+                    print(self.dict)
+                    let msisdn = UserDefaults.standard.getMsisdn()
+                    let email = self.dict["email"] as? String
+                    let fname = self.dict["name"] as? String
+                    guard let picsDict = self.dict["picture"] as? [String: Any] else {return}
+                    guard let picd = picsDict["data"] as? [String: Any] else {return}
+                    let picUrl = picd["url"] as? String
+                    if let email = email, let fname = fname, let picUrl = picUrl{
+                        
+                        let usr = User(email: email, msisdn: msisdn, password: "", physical_address: "", profileImage: picUrl, username: fname, signinType: "Facebook")
+                        
+                        let value = [
+                        
+                            "email": email,
+                            "msisdn": msisdn,
+                            "password": "",
+                            "physical_address": "",
+                            "profileImage": picUrl,
+                            "signinType": "Facebook",
+                            "username": fname
+                        ]
+                        
+                        self.pushUserToFirebase(value: value)
+                        
+                        UserDefaults.standard.saveUserDetails(user: usr)
+                        UserDefaults.standard.setIsUserDetailsLoggedIn(value: true)
+                    
+                        self.profileController?.tableView.reloadData()
+                        print(UserDefaults.standard.isUserDetailsLoggedIn())
+                    }
+                    
+                }
+            })
+        }
+    }
+    
+    private func pushUserToFirebase(value: [String: Any]){
+        let userKey = UserDefaults.standard.getUserKey()
+        AppFirRef.subscriberRef.child(userKey).child("users").setValue(value)
     }
     
 
@@ -72,10 +135,25 @@ class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
             let email = user.profile.email
             
             if let name = fullName, let email = email {
-                let usr = User(email: email, msisdn: "", password: "", physical_address: "", profileImage: user.profile.imageURL(withDimension: 200).absoluteString, username: name, signinType: "Google")
+                let msisdn = UserDefaults.standard.getMsisdn()
+                let usr = User(email: email, msisdn: msisdn, password: "", physical_address: "", profileImage: user.profile.imageURL(withDimension: 200).absoluteString, username: name, signinType: "Google")
+                
+                let value = [
+                    
+                    "email": email,
+                    "msisdn": msisdn,
+                    "password": "",
+                    "physical_address": "",
+                    "profileImage": user.profile.imageURL(withDimension: 200).absoluteString,
+                    "signinType": "Facebook",
+                    "username": name
+                ]
+                
+                self.pushUserToFirebase(value: value)
                 
                 UserDefaults.standard.saveUserDetails(user: usr)
                 UserDefaults.standard.setIsUserDetailsLoggedIn(value: true)
+                self.profileController?.tableView.reloadData()
             }
             
 

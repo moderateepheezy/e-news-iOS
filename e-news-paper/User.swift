@@ -33,6 +33,15 @@ public class User: NSObject, NSCoding{
         self.signinType = signinType
     }
     
+    init(value: [String: Any]){
+        self.email = value["email"] as? String ?? ""
+        self.msisdn = value["msisdn"] as? String ?? ""
+        self.password = value["password"] as? String ?? ""
+        self.physical_address = value["physical_address"] as? String ?? ""
+        self.profileImage = value["profileImage"] as? String ?? ""
+        self.username = value["username"] as? String ?? ""
+    }
+    
     required public init(coder decoder: NSCoder) {
         self.email = decoder.decodeObject(forKey: "email") as? String ?? ""
         self.msisdn = decoder.decodeObject(forKey: "msisdn") as? String ?? ""
