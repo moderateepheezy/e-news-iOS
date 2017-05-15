@@ -41,8 +41,6 @@ class NewsListVC: UIViewController {
         
         self.navigationItem.rightBarButtonItems = [ settingsButton, searchBarButton]
         
-        let newsRef = FIRDatabase.database().reference(withPath: "news")
-        newsRef.keepSynced(true)
         
         tableView.delegate = self
         tableView.dataSource = self

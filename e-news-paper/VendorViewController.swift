@@ -34,9 +34,6 @@ class VendorViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItems = [ searchBarButton]
         
-        let vendorRef = FIRDatabase.database().reference(withPath: "newspapers")
-        vendorRef.keepSynced(true)
-        
         tableView.delegate = self
         tableView.dataSource = self
 //

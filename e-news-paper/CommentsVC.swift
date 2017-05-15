@@ -29,7 +29,7 @@ class CommentsVC: UIViewController {
             
             let uname = user.username ?? "Anonymous"
             let userImage = user.profileImage ?? ""
-            let timeSent = NSDate().timeIntervalSince1970
+            let timeSent = Date().millisecondsSince1970
             print(timeSent)
             let value = [
                 

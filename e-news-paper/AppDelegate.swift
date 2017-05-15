@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
+        
         FIRDatabase.database().persistenceEnabled = true
         
         window =  UIWindow(frame: UIScreen.main.bounds)
@@ -37,6 +38,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKLoginManager.renewSystemCredentials { (accoutCredentials, error) in
             
         }
+        
+        let vendorRef = FIRDatabase.database().reference(withPath: "newspapers")
+        vendorRef.keepSynced(true)
+        
+        let commentRef = FIRDatabase.database().reference(withPath: "comments")
+        commentRef.keepSynced(true)
+        
+        let newsRef = FIRDatabase.database().reference(withPath: "news")
+        newsRef.keepSynced(true)
+        
+        let subscriberRef = FIRDatabase.database().reference(withPath: "subscriber")
+        subscriberRef.keepSynced(true)
         
         
         return true

@@ -30,6 +30,12 @@ class NewsDetailVC: UIViewController {
     @IBOutlet weak var subscribedButton: UIButton!
     
     
+    @IBOutlet weak var commentBarButton: MIBadgeButton!
+    
+    @IBAction func commentButtonTapped(_ sender: Any) {
+        pushToComment()
+    }
+    
     
     var vendor: NewsPaper?{
         didSet{
@@ -65,17 +71,25 @@ class NewsDetailVC: UIViewController {
     }
     
     
+    private func getCommentCounts(){
+        if let key = news?.newsKey{
+            AppFirRef.commentsRef.child(key).observe(.childAdded, with: { (snapshot) in
+                if snapshot.childrenCount > 0 {
+                    self.commentBarButton.badgeString = "\(snapshot.childrenCount)"
+                }else{
+                    self.commentBarButton.badgeString = "\(0)"
+                }
+            })
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        let commentBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_comment"), style: .plain, target: self, action: #selector(pushToComment))
-        commentBarButton.tintColor = UIColor.black
-        
-        
-        self.navigationItem.rightBarButtonItems = [ commentBarButton]
+        commentBarButton.badgeString = "0"
         
         subscribedButton.layer.cornerRadius = subscribedButton.frame.height / 2
         
@@ -111,6 +125,8 @@ class NewsDetailVC: UIViewController {
             })
             
         }
+        
+        getCommentCounts()
         
     }
     
