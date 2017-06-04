@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '8.0'
+ platform :ios, '9.0'
 
 target 'e-news-paper' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -13,6 +13,7 @@ target 'e-news-paper' do
   pod 'SDWebImage', '~>4.0.0'
   pod 'Google/SignIn'
   pod 'MIBadgeButton-Swift', :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
+  pod 'SwiftyOnboard'
   target 'e-news-paperTests' do
     inherit! :search_paths
     # Pods for testing

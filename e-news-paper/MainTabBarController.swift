@@ -29,9 +29,8 @@ class MainTabBarController: UITabBarController {
     }
     
     func showLoginController(){
-        let log = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhoneNumber") as! PhoneNumberViewController
-        let loginVc = UINavigationController(rootViewController: log)
-        present(loginVc, animated: true, completion: nil)
+        let vc = IntroVC()
+        present(vc, animated: true, completion: nil)
 
     }
     

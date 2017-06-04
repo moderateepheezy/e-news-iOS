@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import NDParallaxIntroView
 import NVActivityIndicatorView
 import Firebase
 
@@ -16,22 +15,14 @@ public protocol PhoneNumberViewControllerDelegate {
     func phoneNumberViewControllerDidCancel(_ phoneNumberViewController: PhoneNumberViewController)
 }
 
-public final class PhoneNumberViewController: UIViewController, CountriesViewControllerDelegate , NDIntroViewDelegate, NVActivityIndicatorViewable{
+public final class PhoneNumberViewController: UIViewController, CountriesViewControllerDelegate, NVActivityIndicatorViewable{
     public class func standardController() -> PhoneNumberViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhoneNumber") as! PhoneNumberViewController
     }
     
-    var introView: NDIntroView!
     
     @IBOutlet weak var goButton: UIButton!
     
-    public func launchAppButtonPressed() {
-        UIView.animate(withDuration: 0.7, animations: {
-            self.introView.alpha = 0
-        }) { (completed) in
-            self.introView.removeFromSuperview()
-        }
-    }
     
     @IBOutlet weak public var countryButton: UIButton!
     @IBOutlet weak public var countryTextField: UITextField!
@@ -76,8 +67,6 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
                 navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
                 navigationController?.navigationBar.shadowImage = UIImage()
         
-        startIntro()
-        
         setupCancelButton()
         setupDoneButton()
         
@@ -88,18 +77,7 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
         //phoneNumberTextField.becomeFirstResponder()
     }
     
-    private func startIntro(){
-        let pageContentArray = [[kNDIntroPageTitle : "NDParallaxIntroView", kNDIntroPageDescription : "Now you can easily add your beautiful intro into your app with no hassle.", kNDIntroPageImageName : "unnamed"], [kNDIntroPageTitle : "Work-It-Out", kNDIntroPageDescription : "A great App to create your own personal workout and get instructed by your phone.", kNDIntroPageImageName : "unnamed"], [kNDIntroPageTitle : "ColorSkill",kNDIntroPageDescription : "A small game while waiting for the bus. Easy, quick and addictive.",kNDIntroPageImageName : "unnamed"]]
-        
-        self.introView = NDIntroView.init(frame: self.view.frame, parallaxImage: UIImage(named: ""), andData: pageContentArray)
-        
-        self.introView.delegate = self
-        
-        // self.introView.backgroundColor = .black
-        
-        self.view.addSubview(introView)
-        
-    }
+
     
     @IBAction fileprivate func changeCountry(_ sender: UIButton) {
         let countriesViewController = CountriesViewController.standardController()
