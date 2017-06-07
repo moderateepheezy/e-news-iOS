@@ -14,7 +14,7 @@ class IntroVC: UIViewController {
     var swiftyOnboard: SwiftyOnboard!
     let colors:[UIColor] = [#colorLiteral(red: 0.5921568627, green: 0.3843137255, blue: 0.6431372549, alpha: 1),#colorLiteral(red: 0.2156862745, green: 0.7254901961, blue: 0.937254902, alpha: 1),#colorLiteral(red: 0.7215686275, green: 0.7333333333, blue: 0.7294117647, alpha: 1)]
     var titleArray: [String] = ["E-News Paper", "E-News Paper", "E-News Paper"]
-    var subTitleArray: [String] = ["Confess lets you anonymously\n send confessions to your friends\n and receive confessions from them.", "All confessions sent are\n anonymous. Your friends will only\n know that it came from one of\n their facebook friends.", "Be nice to your friends.\n Send them confessions that\n will make them smile :)"]
+    var subTitleArray: [String] = ["Access news from different vendors", "Instant news", "Customize news to your taste."]
     
     var gradiant: CAGradientLayer = {
         //Gradiant for the background view
