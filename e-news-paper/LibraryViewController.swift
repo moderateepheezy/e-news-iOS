@@ -39,6 +39,11 @@ class LibraryViewController: UIViewController {
             print(snapshot.key)
             AppFirRef.newspaperRef.child(snapshot.key).observeSingleEvent(of: .value, with: { (snapshot) in
                 
+                if snapshot.value is NSNull {
+                    AppFirRef.subscriberRef.child(id).child("susbscriptions").child(snapshot.key).removeValue()
+                    return
+                }
+                
                     guard let value = snapshot.value as? [String : Any] else { return }
                     
                     print(value)

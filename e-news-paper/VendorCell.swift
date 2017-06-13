@@ -13,6 +13,8 @@ class VendorCell: UITableViewCell {
     
     var isSubscribed = false
     
+    var vendorViewController: VendorViewController?
+    
     var vendor: NewsPaper? {
         didSet{
             
@@ -129,7 +131,7 @@ class VendorCell: UITableViewCell {
         optionMenu.addAction(monthlyAction)
         optionMenu.addAction(cancelAction)
         
-        self.window?.rootViewController?.present(optionMenu, animated: true, completion: nil)
+        vendorViewController?.present(optionMenu, animated: true, completion: nil)
     }
     
     func subType(){
@@ -167,7 +169,7 @@ class VendorCell: UITableViewCell {
         optionMenu.addAction(mobileAction)
         optionMenu.addAction(cancelAction)
         
-        self.window?.rootViewController?.present(optionMenu, animated: true, completion: nil)
+        vendorViewController?.present(optionMenu, animated: true, completion: nil)
         
     }
     

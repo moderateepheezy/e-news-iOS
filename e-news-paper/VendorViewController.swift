@@ -150,6 +150,8 @@ extension VendorViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.vendor = vendor
         
+        cell.vendorViewController = self
+        
         if let imageUrl = vendor.logo{
             
             let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
