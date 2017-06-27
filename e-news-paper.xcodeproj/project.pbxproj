@@ -35,7 +35,6 @@
 		946E75971E9A0FDB00887A43 /* ImageCacheLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75961E9A0FDB00887A43 /* ImageCacheLoader.swift */; };
 		946E75991E9A20A400887A43 /* AppFirRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75981E9A20A400887A43 /* AppFirRef.swift */; };
 		946E759B1E9A702F00887A43 /* NewsDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E759A1E9A702F00887A43 /* NewsDetailVC.swift */; };
-		946E75A51E9C8F8300887A43 /* HTMLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 946E75A41E9C8F8300887A43 /* HTMLLabel.m */; };
 		946E75A71E9CDDEB00887A43 /* Singletons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946E75A61E9CDDEB00887A43 /* Singletons.swift */; };
 		949212671E95C730006FE088 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949212661E95C730006FE088 /* AppDelegate.swift */; };
 		949212691E95C730006FE088 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949212681E95C730006FE088 /* ProfileViewController.swift */; };
@@ -110,8 +109,6 @@
 		946E75961E9A0FDB00887A43 /* ImageCacheLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheLoader.swift; sourceTree = "<group>"; };
 		946E75981E9A20A400887A43 /* AppFirRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFirRef.swift; sourceTree = "<group>"; };
 		946E759A1E9A702F00887A43 /* NewsDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailVC.swift; sourceTree = "<group>"; };
-		946E75A31E9C8F8300887A43 /* HTMLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLLabel.h; sourceTree = "<group>"; };
-		946E75A41E9C8F8300887A43 /* HTMLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLLabel.m; sourceTree = "<group>"; };
 		946E75A61E9CDDEB00887A43 /* Singletons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singletons.swift; sourceTree = "<group>"; };
 		949212631E95C730006FE088 /* e-news-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "e-news-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		949212661E95C730006FE088 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,7 +123,6 @@
 		949212821E95C731006FE088 /* e-news-paperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "e-news-paperUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		949212861E95C731006FE088 /* e_news_paperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_news_paperUITests.swift; sourceTree = "<group>"; };
 		949212881E95C731006FE088 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		949212951E95CCF2006FE088 /* ENewsPaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ENewsPaper.h; sourceTree = "<group>"; };
 		949212971E9608FE006FE088 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		9492129B1E9612C8006FE088 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9492129D1E961931006FE088 /* VendorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendorViewController.swift; sourceTree = "<group>"; };
@@ -218,23 +214,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		946E759C1E9C8F2700887A43 /* Obj-C */ = {
-			isa = PBXGroup;
-			children = (
-				946E759F1E9C8F4F00887A43 /* HTMLabeL */,
-			);
-			name = "Obj-C";
-			sourceTree = "<group>";
-		};
-		946E759F1E9C8F4F00887A43 /* HTMLabeL */ = {
-			isa = PBXGroup;
-			children = (
-				946E75A31E9C8F8300887A43 /* HTMLLabel.h */,
-				946E75A41E9C8F8300887A43 /* HTMLLabel.m */,
-			);
-			name = HTMLabeL;
-			sourceTree = "<group>";
-		};
 		9492125A1E95C730006FE088 = {
 			isa = PBXGroup;
 			children = (
@@ -299,8 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				942CEF5A1E9DCCF6008B49F6 /* ExpandableLabel.swift */,
-				946E759C1E9C8F2700887A43 /* Obj-C */,
-				949212951E95CCF2006FE088 /* ENewsPaper.h */,
 				9492129B1E9612C8006FE088 /* Extensions.swift */,
 				946E75961E9A0FDB00887A43 /* ImageCacheLoader.swift */,
 				946E75981E9A20A400887A43 /* AppFirRef.swift */,
@@ -669,7 +646,6 @@
 				949212A01E961959006FE088 /* LibraryViewController.swift in Sources */,
 				946E75701E999E1300887A43 /* PhoneNumberViewController.swift in Sources */,
 				946E75931E99DD5800887A43 /* NewsPaper.swift in Sources */,
-				946E75A51E9C8F8300887A43 /* HTMLLabel.m in Sources */,
 				946E75871E99B39400887A43 /* PNPHighlightButton.swift in Sources */,
 				9420781C1EE3CDF200D28E0C /* IntroVC.swift in Sources */,
 				949212671E95C730006FE088 /* AppDelegate.swift in Sources */,
@@ -837,10 +813,10 @@
 				CODE_SIGN_ENTITLEMENTS = "e-news-paper/e-news-paper.entitlements";
 				DEVELOPMENT_TEAM = G5NKVP88SZ;
 				INFOPLIST_FILE = "e-news-paper/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-papers";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-paper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Desktop/CompleteiOS9SampleCodes/e-news-paper/e-news-paper/ENewsPaper.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -853,10 +829,10 @@
 				CODE_SIGN_ENTITLEMENTS = "e-news-paper/e-news-paper.entitlements";
 				DEVELOPMENT_TEAM = G5NKVP88SZ;
 				INFOPLIST_FILE = "e-news-paper/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-papers";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-paper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Desktop/CompleteiOS9SampleCodes/e-news-paper/e-news-paper/ENewsPaper.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

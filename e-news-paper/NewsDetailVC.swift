@@ -310,18 +310,17 @@ class NewsDescription: UITableViewCell{
                 
                 UIView.animate(withDuration: 0.34, animations: { 
                     self.newsDescription.heightAnchor.constraint(equalToConstant: self.frame.height).isActive = true
-                    self.newsDescription.requiredHeight()
                     self.showMoreButton.alpha = 0
                 })
             }else{
                 newsDescription.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                newsDescription.numberOfLines = 3
                 showMoreButton.alpha = 1
             }
         }
     }
     
-    @IBOutlet weak var newsDescription: UILabel!
+    @IBOutlet weak var newsDescription: UIWebView!
+    
     @IBOutlet weak var showMoreButton: UIButton!
     
     @IBAction func showMoreTapped(_ sender: Any) {
@@ -397,9 +396,10 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
             
             
             cell.news = news
-            
-            cell.newsDescription.text = news?.content
-            cell.newsDescription.requiredHeight()
+            if let content = news?.content {
+                cell.newsDescription.loadHTMLString(content, baseURL: nil)
+            }
+
             return cell
         }
     }

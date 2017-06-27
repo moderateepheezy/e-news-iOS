@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -148,7 +147,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J39-y8-hRA">
                                                     <rect key="frame" x="8" y="208" width="359" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -158,7 +157,7 @@
                                                         <constraint firstAttribute="width" constant="140" id="TLV-Ff-yLD"/>
                                                         <constraint firstAttribute="height" constant="21" id="tJ1-fX-O2z"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.94509803920000002" green="0.3921568627" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -168,7 +167,7 @@
                                                         <constraint firstAttribute="height" constant="17" id="ZEg-o6-VFZ"/>
                                                         <constraint firstAttribute="width" constant="33" id="vqs-Qd-JeS"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -185,7 +184,7 @@
                                                         <constraint firstAttribute="width" constant="142" id="M1f-NA-tNP"/>
                                                         <constraint firstAttribute="height" constant="21" id="dDG-Ya-90F"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -790,20 +789,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="262"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Uv-os-1Ph" customClass="HTMLLabel">
+                                                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2QE-RH-dnj">
                                                     <rect key="frame" x="8" y="16" width="359" height="246"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="246" id="6k5-HZ-xrh"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </webView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E83-GG-3xj">
-                                                    <rect key="frame" x="63" y="74" width="248" height="49"/>
+                                                    <rect key="frame" x="149" y="74" width="77" height="49"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="49" id="bJc-1m-1cQ"/>
+                                                        <constraint firstAttribute="height" constant="49" id="p6S-fp-tUr"/>
+                                                        <constraint firstAttribute="width" constant="77" id="yao-5S-qmO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <state key="normal" title="Read More">
@@ -815,17 +810,16 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4Uv-os-1Ph" firstAttribute="top" secondItem="clH-6V-0E5" secondAttribute="topMargin" constant="8" id="BcT-7Y-t5g"/>
-                                                <constraint firstItem="4Uv-os-1Ph" firstAttribute="centerX" secondItem="E83-GG-3xj" secondAttribute="centerX" id="EMi-RU-kh5"/>
-                                                <constraint firstItem="E83-GG-3xj" firstAttribute="leading" secondItem="clH-6V-0E5" secondAttribute="leadingMargin" constant="55" id="FWJ-6Q-Uqc"/>
-                                                <constraint firstItem="E83-GG-3xj" firstAttribute="top" secondItem="clH-6V-0E5" secondAttribute="topMargin" constant="66" id="OMr-jz-A45"/>
-                                                <constraint firstItem="4Uv-os-1Ph" firstAttribute="trailing" secondItem="clH-6V-0E5" secondAttribute="trailingMargin" id="arw-Yf-vqu"/>
-                                                <constraint firstItem="4Uv-os-1Ph" firstAttribute="leading" secondItem="clH-6V-0E5" secondAttribute="leadingMargin" id="dBg-YC-yPn"/>
-                                                <constraint firstItem="4Uv-os-1Ph" firstAttribute="centerX" secondItem="clH-6V-0E5" secondAttribute="centerX" id="eM8-dc-eEL"/>
+                                                <constraint firstItem="E83-GG-3xj" firstAttribute="top" secondItem="clH-6V-0E5" secondAttribute="topMargin" constant="66" id="0DK-Ri-EAI"/>
+                                                <constraint firstItem="E83-GG-3xj" firstAttribute="centerX" secondItem="clH-6V-0E5" secondAttribute="centerX" id="ZWC-Nr-Gsa"/>
+                                                <constraint firstAttribute="trailing" secondItem="2QE-RH-dnj" secondAttribute="trailing" constant="8" id="lbT-xb-rDx"/>
+                                                <constraint firstAttribute="bottom" secondItem="2QE-RH-dnj" secondAttribute="bottom" id="sZq-Qg-Lv1"/>
+                                                <constraint firstItem="2QE-RH-dnj" firstAttribute="top" secondItem="clH-6V-0E5" secondAttribute="top" constant="16" id="tk5-Ss-6wb"/>
+                                                <constraint firstItem="2QE-RH-dnj" firstAttribute="leading" secondItem="clH-6V-0E5" secondAttribute="leading" constant="8" id="vbq-3d-bCy"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="newsDescription" destination="4Uv-os-1Ph" id="J0H-S6-KmI"/>
+                                            <outlet property="newsDescription" destination="2QE-RH-dnj" id="jXw-cH-fUY"/>
                                             <outlet property="showMoreButton" destination="E83-GG-3xj" id="du6-Oj-ki3"/>
                                         </connections>
                                     </tableViewCell>
@@ -1698,7 +1692,7 @@
         <image name="white_background" width="1280" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PRw-eS-aPr"/>
         <segue reference="TwQ-57-shK"/>
+        <segue reference="F3i-eM-dqg"/>
     </inferredMetricsTieBreakers>
 </document>

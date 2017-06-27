@@ -90,6 +90,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.9)
   - GTMSessionFetcher/Full (1.1.9):
     - GTMSessionFetcher/Core (= 1.1.9)
+  - IQKeyboardManagerSwift (4.0.10)
   - MaterialCard (1.1.4)
   - MIBadgeButton-Swift (0.5)
   - NDParallaxIntroView (1.0)
@@ -106,6 +107,7 @@ PODS:
 DEPENDENCIES:
   - FirebaseUI (~> 3.0)
   - Google/SignIn
+  - IQKeyboardManagerSwift (= 4.0.10)
   - MaterialCard
   - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
   - NDParallaxIntroView
@@ -141,6 +143,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
   MaterialCard: 95fe84134e995d8688a88d2d305c520291910f6d
   MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
   NDParallaxIntroView: fecbf871a0fe9c72dc53e644d0735fb49dd87a78
@@ -150,6 +153,6 @@ SPEC CHECKSUMS:
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
 
-PODFILE CHECKSUM: eaa63171bf86f7de1839d390c7642a942899f3b2
+PODFILE CHECKSUM: f4e6d042d8776f44a0c97bce3a748d6dc99edd6f
 
 COCOAPODS: 1.2.0

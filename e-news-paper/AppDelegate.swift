@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import FBSDKLoginKit
 import FBSDKCoreKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let subscriberRef = FIRDatabase.database().reference(withPath: "subscriber")
         subscriberRef.keepSynced(true)
         
+        IQKeyboardManager.sharedManager().enable = true
         
         return true
     }

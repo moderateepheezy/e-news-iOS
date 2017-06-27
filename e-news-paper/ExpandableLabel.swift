@@ -57,7 +57,7 @@ private struct Static {
 /**
  * ExpandableLabel
  */
-open class ExpandableLabel : HTMLLabel {
+open class ExpandableLabel : UILabel {
     
     /// The delegate of ExpandableLabel
     weak open var expandDelegate: ExpandableLabelDelegate?

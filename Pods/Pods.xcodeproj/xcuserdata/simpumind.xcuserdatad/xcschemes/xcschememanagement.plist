@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MIBadgeButton-Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -107,17 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4AFB4CBB657BADB48B109F2678EF071B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6BC8621B6C6BE4D5E84C6D0501EFC599</key>
+		<key>6D675F4DEC53BC1BC7E42D96780887FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +152,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CBCAFDA1D57AD0ADBBDD0973881625D9</key>
+		<key>C235F77E101E742652CCF98FFDFA5182</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C316313F7AB44224DA1E400D2A30AB76</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -163,6 +168,11 @@
 			<true/>
 		</dict>
 		<key>DA18C83B815BF4103200791DF37187D2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E61F06C98F073D10AC52F582C228E34D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

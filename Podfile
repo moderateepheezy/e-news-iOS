@@ -14,6 +14,7 @@ target 'e-news-paper' do
   pod 'Google/SignIn'
   pod 'MIBadgeButton-Swift', :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
   pod 'SwiftyOnboard'
+  pod 'IQKeyboardManagerSwift', '4.0.10'
   target 'e-news-paperTests' do
     inherit! :search_paths
     # Pods for testing
