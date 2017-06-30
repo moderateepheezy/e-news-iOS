@@ -1,3 +1,5 @@
+
+
 //
 //  ViewController.swift
 //  e-news-paper
@@ -87,22 +89,24 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
                 
                 let user = UserDefaults.standard.fetchUserDetails()
                 
-                cell.usernameLabel.text = user.username
-                cell.userEmailLabel.text = user.email
-                cell.userPhoneNumberLabel.text = user.msisdn
+                cell.usernameLabel.text = user?.username
+                cell.userEmailLabel.text = user?.email
+                cell.userPhoneNumberLabel.text = user?.msisdn
                 
                 
                 
-                let url = NSURL(fileURLWithPath: user.profileImage!)
-                
-                cell.userProfileImageView.or_setProfileImageWithURL(url: url)
+                if let imgUrl = user?.profileImage {
+                    let url = NSURL(fileURLWithPath: imgUrl)
+                    
+                    cell.userProfileImageView.or_setProfileImageWithURL(url: url)
+                }
                 
                 return cell
             
             }else if let user = self.user,
                 let cell = tableView.dequeueReusableCell(withIdentifier: "loggedIn", for: indexPath) as? LoggedInCell {
                 
-                let url = NSURL(fileURLWithPath: user.profileImage!)
+                let url = NSURL(fileURLWithPath: user.profileImage)
                 
                 cell.usernameLabel.text = user.username
                 cell.userEmailLabel.text = user.email

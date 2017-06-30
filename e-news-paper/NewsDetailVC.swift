@@ -33,7 +33,19 @@ class NewsDetailVC: UIViewController {
     @IBOutlet weak var commentBarButton: MIBadgeButton!
     
     @IBAction func commentButtonTapped(_ sender: Any) {
-        pushToComment()
+        if NewsDetailVC.isSubscribed  && isKeyPresentInUserDefaults(key: "user") {
+            pushToComment()
+        }else if !NewsDetailVC.isSubscribed && !isKeyPresentInUserDefaults(key: "user") {
+            print("You have not subscribed or logged in.")
+        }else if NewsDetailVC.isSubscribed && isKeyPresentInUserDefaults(key: "user") {
+            print("You have not Logged In")
+        }else{
+            print("You have not Subscribed")
+        }
+    }
+    
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
     
     

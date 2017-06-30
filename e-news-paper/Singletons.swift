@@ -65,7 +65,7 @@ extension UserDefaults{
         synchronize()
     }
     
-    func fetchUserDetails() -> User{
+    func fetchUserDetails() -> User?{
         let decoded = object(forKey: "user") as! Data
         let decodedUser = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! User
         return decodedUser

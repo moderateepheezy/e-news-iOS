@@ -11,13 +11,13 @@ import UIKit
 
 public class User: NSObject, NSCoding{
     
-    var email: String?
-    var msisdn: String?
-    var password: String?
-    var physical_address: String?
-    var profileImage: String?
-    var username: String?
-    var signinType: String?
+    var email: String
+    var msisdn: String
+    var password: String
+    var physical_address: String
+    var profileImage: String
+    var username: String
+    var signinType: String
     
     
     init(email: String, msisdn: String, password: String,
@@ -40,6 +40,7 @@ public class User: NSObject, NSCoding{
         self.physical_address = value["physical_address"] as? String ?? ""
         self.profileImage = value["profileImage"] as? String ?? ""
         self.username = value["username"] as? String ?? ""
+        self.signinType = value["signinType"] as? String ?? ""
     }
     
     required public init(coder decoder: NSCoder) {

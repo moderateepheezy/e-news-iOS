@@ -70,9 +70,9 @@ extension SettingsVC: UITableViewDataSource, UITableViewDelegate{
                 
                 let user = UserDefaults.standard.fetchUserDetails()
                 
-                cell.usernameLabel.text = user.username
-                cell.userEmailLabel.text = user.email
-                cell.userPhoneNumberLabel.text = user.msisdn
+                cell.usernameLabel.text = user?.username
+                cell.userEmailLabel.text = user?.email
+                cell.userPhoneNumberLabel.text = user?.msisdn
                 
                 
                 return cell

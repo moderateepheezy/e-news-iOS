@@ -25,22 +25,23 @@ class CommentsVC: UIViewController {
         if text.isEmpty{
             
         }else{
-            let user = UserDefaults.standard.fetchUserDetails()
             
-            let uname = user.username ?? "Anonymous"
-            let userImage = user.profileImage ?? ""
-            let timeSent = Date().millisecondsSince1970
-            print(timeSent)
-            let value = [
+            guard let user = UserDefaults.standard.fetchUserDetails() else {return}
+                let uname = user.username ?? "Anonymous"
+                let userImage = user.profileImage ?? ""
+                let timeSent = Date().millisecondsSince1970
+                print(timeSent)
+                let value = [
+                    
+                    "text": text,
+                    "username": uname,
+                    "timeSent": timeSent,
+                    "userImage": userImage
+                    
+                    ] as [String : Any]
                 
-                "text": text,
-                "username": uname,
-                "timeSent": timeSent,
-                "userImage": userImage
-                
-            ] as [String : Any]
+                pushComment(value: value)
             
-            pushComment(value: value)
             
             commentTextField.text = ""
         }

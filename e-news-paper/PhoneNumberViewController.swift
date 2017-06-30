@@ -238,14 +238,12 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
                 print(snapshot)
                 let newsubscriber = AppFirRef.subscriberRef.childByAutoId()
                 newsubscriber.child("msisdn").setValue(msisdn, withCompletionBlock: { (error, ref) in
-                    
+    
                     if error != nil{
                         return
                     }
                     
                     UserDefaults.standard.setUserKey(value: newsubscriber.key)
-                    
-                    
                     self.goToMain()
                 })
             }
