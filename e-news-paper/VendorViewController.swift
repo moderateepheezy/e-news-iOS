@@ -44,12 +44,14 @@ class VendorViewController: UIViewController {
         
         AppFirRef.newspaperRef.observe(.value, with: { (snapshot) in
             
-            for case let snap as FIRDataSnapshot in snapshot.children{
+            for case let snap as DataSnapshot in snapshot.children{
                 guard let value = snap.value as? [String : Any] else { return }
                 
-                print(value)
                 let newspaper = NewsPaper(value: value, vendorKey: snap.key)
-                self.vendors.append(newspaper)
+                
+                if newspaper.news != nil && "deleted" != newspaper.status {
+                    self.vendors.append(newspaper)
+                }
                 
             }
             
@@ -106,7 +108,6 @@ class VendorViewController: UIViewController {
         }
     }
 
-
 }
 
 extension VendorViewController: UITableViewDelegate, UITableViewDataSource {
@@ -154,7 +155,7 @@ extension VendorViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let imageUrl = vendor.logo{
             
-            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return

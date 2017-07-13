@@ -10,7 +10,7 @@ import Firebase
 
 final class AppFirRef {
 
-    static let baseRef = FIRDatabase.database().reference()
+    static let baseRef = Database.database().reference()
     
     static var newsRef = baseRef.child("news")
     static var newspaperRef = baseRef.child("newspapers")

@@ -47,7 +47,7 @@ class LibraryViewController: UIViewController {
                     guard let value = snapshot.value as? [String : Any] else { return }
                     
                     print(value)
-                    let newspaper = NewsPaper(value: value, vendorKey: snapshot.key)
+                let newspaper = NewsPaper(value: value, vendorKey: snapshot.key)
                     self.set.append(newspaper)
                     
                 DispatchQueue.main.async {
@@ -75,7 +75,7 @@ extension LibraryViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         if let imageUrl = s.logo{
             
-            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return

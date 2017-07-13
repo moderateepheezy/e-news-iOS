@@ -76,7 +76,7 @@ extension IntroVC: SwiftyOnboardDelegate, SwiftyOnboardDataSource {
         
         //Set the image on the page:
         let imgIndex = index  + 1
-        view.imageView.image = UIImage(named: "\(imgIndex)")
+        view.imageView.image = UIImage(named: "a\(imgIndex)")
         
         //Set the font and color for the labels:
         view.title.font = UIFont(name: "Lato-Heavy", size: 22)

@@ -12,12 +12,10 @@ class NewsListCell: UITableViewCell {
     
     var news: News?{
         didSet{
-            newsTitleLabel.text = news?.caption
+            newsTitleLabel.text = news?.caption.english
             if let created = news?.created_on {
                 
                 let epocTime = TimeInterval(created)
-                
-                print(epocTime)
                 
                 let date = Date(timeIntervalSince1970: epocTime / 1000)
                 print(date)

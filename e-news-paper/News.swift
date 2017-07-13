@@ -10,9 +10,7 @@ import Foundation
 import UIKit
 
 public class News {
-    
-    var caption: String?
-    var content: String?
+
     var created_on: CLong?
     var newspaper_id: String?
     var thumbnail: String?
@@ -20,15 +18,42 @@ public class News {
     
     var fav: String?
     
+    var content = Content()
+    var caption = Caption()
+    
+    init() {
+        
+    }
     
     init(value: [String:  Any], newsKey: String) {
         self.newsKey = newsKey
-        self.caption = value["caption"] as? String
-        self.content = value["content"] as? String
+        
+        let contentDictionary = value["content"] as? [String: Any]
+        self.content.english = contentDictionary?["english"] as? String
+        self.content.french = contentDictionary?["french"] as? String
+        
         self.created_on = value["created_on"] as? CLong
         self.newspaper_id = value["newspaper_id"] as? String
         self.thumbnail = value["thumbnail"] as? String
+        
+        let captionDictionary = value["caption"] as? [String: Any]
+        self.caption.english = captionDictionary?["english"] as? String
+        self.caption.french = captionDictionary?["french"] as? String
     }
     
+    
+}
+
+struct Content {
+    
+    var english: String?
+    var french: String?
+    
+}
+
+struct Caption {
+    
+    var english: String?
+    var french: String?
     
 }

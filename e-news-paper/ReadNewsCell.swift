@@ -25,7 +25,7 @@ class ReadNewsCell: UITableViewCell {
         let userKey = UserDefaults.standard.getUserKey()
         
         AppFirRef.subscriberRef.child(userKey).child("read_news").observe(.value, with: { (snapshot) in
-            for case let snap as FIRDataSnapshot in snapshot.children{
+            for case let snap as DataSnapshot in snapshot.children{
                 
                 let value = snap.key
 
@@ -65,7 +65,7 @@ extension ReadNewsCell: UITableViewDelegate, UITableViewDataSource{
         
         if let imageUrl = news.thumbnail{
             
-            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return

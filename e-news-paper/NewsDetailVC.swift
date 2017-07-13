@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import MIBadgeButton_Swift
 
+let myNotificationKey = "notificationKey"
 
 class NewsDetailVC: UIViewController {
     
@@ -77,6 +78,7 @@ class NewsDetailVC: UIViewController {
             self.subscribedButton.setTitle("Subscribe", for: .normal)
             subscribedButton.backgroundColor = .black
             unSubscribe(vendorId: (vendor?.vendorKey)!)
+            
         }else{
             timelyConfig()
         }
@@ -124,7 +126,7 @@ class NewsDetailVC: UIViewController {
         if let imageUrl = vendor?.logo{
             let imageLoader = ImageCacheLoader()
             
-            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return
@@ -154,7 +156,7 @@ class NewsDetailVC: UIViewController {
         
         if let imageUrl = vendor?.logo{
             
-            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return
@@ -231,9 +233,12 @@ class NewsDetailVC: UIViewController {
         let mobileAction = UIAlertAction(title: "Mobile Money", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.subscribe(vendorId: (self.vendor?.vendorKey)!)
+            
             self.subscribedButton.backgroundColor = .red
             
             NewsDetailVC.isSubscribed = true
+            
+            self.tableView.isScrollEnabled = true
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -260,6 +265,10 @@ class NewsDetailVC: UIViewController {
                 
             }else{
                 AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).setValue(true)
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).setValue(true)
             }
             
         })
@@ -271,8 +280,39 @@ class NewsDetailVC: UIViewController {
             
             if snapshot.key == vendorId{
                 AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).removeValue()
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).removeValue()
             }
         })
+    }
+    
+ func readByUser(newsId: String){
+        let userKey = UserDefaults.standard.getUserKey()
+        let query = Database.database().reference().child("subscriber").child(userKey).queryOrdered(byChild: "read_news").queryEqual(toValue: newsId)
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                
+            }else{
+                let mDatabase = Database.database().reference().child("subscriber").child(userKey).child("read_news")
+                mDatabase.child(newsId).setValue(true)
+                Database.database().reference().child("news").child(newsId).child("users_read").child(userKey).setValue(true)
+            }
+        })
+    }
+    
+ func unReadByUser(newsId: String){
+        
+        let userKey = UserDefaults.standard.getUserKey()
+        let query = Database.database().reference().child("subscriber").child("read_news").child(userKey)
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.key == newsId {
+                Database.database().reference().child("subscriber").child(userKey)
+            }
+        })
+        
     }
 
 }
@@ -316,24 +356,14 @@ class NewsDescription: UITableViewCell{
         }
     }
     
-    var isSubscribed: Bool?{
-        didSet{
-            if isSubscribed! {
-                
-                UIView.animate(withDuration: 0.34, animations: { 
-                    self.newsDescription.heightAnchor.constraint(equalToConstant: self.frame.height).isActive = true
-                    self.showMoreButton.alpha = 0
-                })
-            }else{
-                newsDescription.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                showMoreButton.alpha = 1
-            }
-        }
-    }
+    @IBOutlet weak var moreButton: UIButton!
+    
     
     @IBOutlet weak var newsDescription: UIWebView!
     
     @IBOutlet weak var showMoreButton: UIButton!
+    
+    @IBOutlet weak var bottomConstraints: NSLayoutConstraint!
     
     @IBAction func showMoreTapped(_ sender: Any) {
         
@@ -345,6 +375,7 @@ class NewsDescription: UITableViewCell{
         showMoreButton.layer.borderColor = UIColor.black.cgColor
         showMoreButton.layer.borderWidth = 2
         showMoreButton.layer.cornerRadius = 5
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -364,14 +395,14 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
         
         if indexPath.item == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTitle", for: indexPath) as! NewsTitle
-            cell.titleLabel.text = news?.caption
+            cell.titleLabel.text = news?.caption.english
             return cell
         }else if indexPath.item == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImage", for: indexPath) as! NewsImage
             
             if let imageUrl = news?.thumbnail{
                 
-                let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+                let vendorStorageRef = Storage.storage().reference().child(imageUrl)
                 vendorStorageRef.downloadURL(completion: { (url, error) in
                     if error != nil{
                         return
@@ -391,25 +422,33 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsDescription", for: indexPath) as! NewsDescription
             
-            let key = vendor?.vendorKey
-            let userKey = UserDefaults.standard.getUserKey()
-            
-            AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(key!)
-                .observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.key == key && !(snapshot.value  is NSNull){
-                        cell.isSubscribed = true
-                        
-                    }else{
-                        cell.isSubscribed = false
-                    }
-                    
-                })
+            if NewsDetailVC.isSubscribed{
+                DispatchQueue.main.async {
+                    cell.bottomConstraints.constant = 0
+                    cell.moreButton.alpha = 0
+                    self.readByUser(newsId: (self.news?.newsKey)!)
+                    UIView.animate(withDuration: 0.3, animations: {
+                        cell.layoutIfNeeded()
+                    })
+                    tableView.reloadData()
+                }
+            }else{
+                DispatchQueue.main.async {
+                    cell.bottomConstraints.constant = 150
+                    cell.moreButton.alpha = 1
+                    self.unReadByUser(newsId: (self.news?.newsKey)!)
+                    UIView.animate(withDuration: 0.3, animations: {
+                        cell.layoutIfNeeded()
+                    })
+                    tableView.reloadData()
+                }
+            }
             
             
             
             cell.news = news
             if let content = news?.content {
-                cell.newsDescription.loadHTMLString(content, baseURL: nil)
+                cell.newsDescription.loadHTMLString(content.english!, baseURL: nil)
             }
 
             return cell
@@ -422,8 +461,7 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
         }else if indexPath.item == 1{
             return 200
         }else{
-            guard let desc = news?.content else { return 10.01 }
-            return estimatedFrameForText(text: desc, textSize: 17) - 300
+            return 300
         }
     }
 

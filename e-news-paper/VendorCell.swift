@@ -35,15 +35,7 @@ class VendorCell: UITableViewCell {
                 vendorNameLabel.text = name
             }
             
-            AppFirRef.newsRef.queryOrdered(byChild: "newspaper_id").queryEqual(toValue: vendor?.vendorKey).queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (snapshot) in
-                for case let snap as FIRDataSnapshot in snapshot.children{
-                    guard let value = snap.value as? [String : Any] else { return }
-                    
-                    let news = News(value: value, newsKey: snap.key)
-                    guard let caption = news.caption else { return }
-                    self.latestNewsLabel.text =  "Latest: " + caption
-                }
-            })
+            latestNewsLabel.text = vendor?.firstNews
         }
     }
     @IBOutlet weak var vendorImageView: UIImageView!
@@ -75,8 +67,6 @@ class VendorCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        vendorImageView.image = #imageLiteral(resourceName: "denews")
         latestNewsLabel.text = ""
         vendorNameLabel.text = ""
         subscribedButton.backgroundColor = .black
@@ -181,6 +171,10 @@ class VendorCell: UITableViewCell {
                 
             }else{
                 AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).setValue(true)
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).setValue(true)
             }
             
         })
@@ -192,6 +186,10 @@ class VendorCell: UITableViewCell {
             
             if snapshot.key == vendorId{
                 AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).removeValue()
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).removeValue()
             }
         })
     }

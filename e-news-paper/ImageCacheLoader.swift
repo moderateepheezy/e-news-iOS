@@ -31,9 +31,9 @@ class ImageCacheLoader {
         } else {
             /* You need placeholder image in your assets,
              if you want to display a placeholder to user */
-            let placeholder = #imageLiteral(resourceName: "denews")
+            
             DispatchQueue.main.async {
-                completionHandler(placeholder)
+                completionHandler(#imageLiteral(resourceName: "default"))
             }
             guard let url: URL = URL(string: imagePath) else{
                 return

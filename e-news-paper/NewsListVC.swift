@@ -48,7 +48,7 @@ class NewsListVC: UIViewController {
         //navigationItem.title = vendor?.paper_name
         
         AppFirRef.newsRef.queryOrdered(byChild: "newspaper_id").queryEqual(toValue: vendor?.vendorKey).observe(.value, with: { (snapshot) in
-            for case let snap as FIRDataSnapshot in snapshot.children{
+            for case let snap as DataSnapshot in snapshot.children{
                 guard let value = snap.value as? [String : Any] else { return }
                 
                 let news = News(value: value, newsKey: snap.key)
@@ -66,7 +66,7 @@ class NewsListVC: UIViewController {
         
         if let imageUrl = vendor?.logo{
             
-            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return
@@ -157,16 +157,18 @@ extension NewsListVC: UITableViewDataSource, UITableViewDelegate{
         cell.news = news
         
         if let imageUrl = news.thumbnail{
-            let vendorStorageRef = FIRStorage.storage().reference().child(imageUrl)
+            let imageLoader = ImageCacheLoader()
+            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
             vendorStorageRef.downloadURL(completion: { (url, error) in
                 if error != nil{
                     return
                 }
                     if let updateCell = tableView.cellForRow(at: indexPath) as? NewsListCell {
-                        updateCell.newsImageView.or_setImageWithURL(url: url! as NSURL)
+                        
+                        imageLoader.obtainImageWithPath(imagePath: (url?.absoluteString)!) { (image) in
+                            updateCell.newsImageView.image = image
+                        }
                     }
-                
-                
             })
             
         }
@@ -230,11 +232,11 @@ extension NewsListVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        filtered = newses.filter { (news) -> Bool in
-            let tmp: NSString = news.caption! as NSString
-            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-            return range.location != NSNotFound
-        }
+//        filtered = newses.filter { (news) -> Bool in
+//            let tmp: NSString = news.caption?.english as NSString
+//            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+//            return range.location != NSNotFound
+//        }
         self.tableView.reloadData()
     }
 }

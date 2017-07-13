@@ -16,8 +16,9 @@
 		940D1E881E976444005CE6C1 /* NewsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D1E871E976444005CE6C1 /* NewsListVC.swift */; };
 		940D1E8A1E97665D005CE6C1 /* NewsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D1E891E97665D005CE6C1 /* NewsListCell.swift */; };
 		940D1E8C1E9768C0005CE6C1 /* ReadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D1E8B1E9768C0005CE6C1 /* ReadCell.swift */; };
+		941C5D5A1F145D3F0061F1DB /* VerifiyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941C5D591F145D3F0061F1DB /* VerifiyVC.swift */; };
+		941C5D5C1F15385D0061F1DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 941C5D5B1F15385D0061F1DB /* GoogleService-Info.plist */; };
 		9420781C1EE3CDF200D28E0C /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420781B1EE3CDF200D28E0C /* IntroVC.swift */; };
-		94207DB51EC51BA7000F0537 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94207DB41EC51BA7000F0537 /* GoogleService-Info.plist */; };
 		942CEF5B1E9DCCF6008B49F6 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CEF5A1E9DCCF6008B49F6 /* ExpandableLabel.swift */; };
 		942CEF7B1EA04E53008B49F6 /* VendorSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CEF7A1EA04E53008B49F6 /* VendorSettingsVC.swift */; };
 		943A705A1EBEBDDB004DC720 /* EmptyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943A70591EBEBDDB004DC720 /* EmptyBackgroundView.swift */; };
@@ -89,9 +90,10 @@
 		940D1E871E976444005CE6C1 /* NewsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListVC.swift; sourceTree = "<group>"; };
 		940D1E891E97665D005CE6C1 /* NewsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListCell.swift; sourceTree = "<group>"; };
 		940D1E8B1E9768C0005CE6C1 /* ReadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadCell.swift; sourceTree = "<group>"; };
+		941C5D521F1418FB0061F1DB /* e-news-paper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "e-news-paper.entitlements"; sourceTree = "<group>"; };
+		941C5D591F145D3F0061F1DB /* VerifiyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiyVC.swift; sourceTree = "<group>"; };
+		941C5D5B1F15385D0061F1DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9420781B1EE3CDF200D28E0C /* IntroVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
-		94207DB31EC515C5000F0537 /* e-news-paper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "e-news-paper.entitlements"; sourceTree = "<group>"; };
-		94207DB41EC51BA7000F0537 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		942CEF5A1E9DCCF6008B49F6 /* ExpandableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		942CEF7A1EA04E53008B49F6 /* VendorSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendorSettingsVC.swift; sourceTree = "<group>"; };
 		943A70591EBEBDDB004DC720 /* EmptyBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBackgroundView.swift; sourceTree = "<group>"; };
@@ -239,7 +241,7 @@
 		949212651E95C730006FE088 /* e-news-paper */ = {
 			isa = PBXGroup;
 			children = (
-				94207DB31EC515C5000F0537 /* e-news-paper.entitlements */,
+				941C5D521F1418FB0061F1DB /* e-news-paper.entitlements */,
 				943A70581EBEBDC6004DC720 /* CustomViews */,
 				946E75711E99B27D00887A43 /* Model */,
 				949212A31E962A0E006FE088 /* Views */,
@@ -250,8 +252,8 @@
 				946E75821E99B39400887A43 /* PhoneNumberPicker.storyboard */,
 				9492126D1E95C730006FE088 /* Assets.xcassets */,
 				9492126F1E95C730006FE088 /* LaunchScreen.storyboard */,
+				941C5D5B1F15385D0061F1DB /* GoogleService-Info.plist */,
 				949212721E95C730006FE088 /* Info.plist */,
-				94207DB41EC51BA7000F0537 /* GoogleService-Info.plist */,
 			);
 			path = "e-news-paper";
 			sourceTree = "<group>";
@@ -301,6 +303,7 @@
 				94B918961EC8C437004C28A1 /* CommentsVC.swift */,
 				94B918A71ECA5809004C28A1 /* SettingsVC.swift */,
 				9420781B1EE3CDF200D28E0C /* IntroVC.swift */,
+				941C5D591F145D3F0061F1DB /* VerifiyVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -404,10 +407,16 @@
 				TargetAttributes = {
 					949212621E95C730006FE088 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = G5NKVP88SZ;
+						DevelopmentTeam = NS5XW2Q4P8;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -453,7 +462,7 @@
 			files = (
 				946E75861E99B39400887A43 /* PhoneNumberPicker.storyboard in Resources */,
 				949212711E95C730006FE088 /* LaunchScreen.storyboard in Resources */,
-				94207DB51EC51BA7000F0537 /* GoogleService-Info.plist in Resources */,
+				941C5D5C1F15385D0061F1DB /* GoogleService-Info.plist in Resources */,
 				9492126E1E95C730006FE088 /* Assets.xcassets in Resources */,
 				9492126C1E95C730006FE088 /* Main.storyboard in Resources */,
 			);
@@ -632,6 +641,7 @@
 				942CEF7B1EA04E53008B49F6 /* VendorSettingsVC.swift in Sources */,
 				94B918971EC8C437004C28A1 /* CommentsVC.swift in Sources */,
 				946E75811E99B36700887A43 /* CountriesViewController.swift in Sources */,
+				941C5D5A1F145D3F0061F1DB /* VerifiyVC.swift in Sources */,
 				946E75891E99B39400887A43 /* PNPSideBordered.swift in Sources */,
 				940D1E881E976444005CE6C1 /* NewsListVC.swift in Sources */,
 				949212A91E96E556006FE088 /* LibraryCell.swift in Sources */,
@@ -811,13 +821,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "e-news-paper/e-news-paper.entitlements";
-				DEVELOPMENT_TEAM = G5NKVP88SZ;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NS5XW2Q4P8;
 				INFOPLIST_FILE = "e-news-paper/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-paper";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-paperers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -827,13 +841,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "e-news-paper/e-news-paper.entitlements";
-				DEVELOPMENT_TEAM = G5NKVP88SZ;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NS5XW2Q4P8;
 				INFOPLIST_FILE = "e-news-paper/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-paper";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.simpumind.e-news-paperers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

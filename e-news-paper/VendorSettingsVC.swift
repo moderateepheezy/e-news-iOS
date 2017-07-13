@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class VendorSettingsVC: UIViewController {
     
@@ -154,6 +155,10 @@ class VendorSettingsVC: UIViewController {
                 
             }else{
                 AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).setValue(true)
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).setValue(true)
             }
             
         })
@@ -165,6 +170,10 @@ class VendorSettingsVC: UIViewController {
             
             if snapshot.key == vendorId{
                 AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).removeValue()
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).removeValue()
             }
         })
     }

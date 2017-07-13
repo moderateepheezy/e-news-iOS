@@ -13,7 +13,7 @@ class ReadCell: UITableViewCell {
     var news: News? {
         didSet{
             if let newTitle = news?.caption{
-                newsTitleLabel.text = newTitle
+                //newsTitleLabel.text = newTitle
             }
             
             if let vendorId = news?.newspaper_id{

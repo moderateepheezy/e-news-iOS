@@ -1,0 +1,52 @@
+{
+  "name": "PinCodeTextField",
+  "version": "0.0.4",
+  "summary": "Simple pin code text input based on UIKeyInput",
+  "description": "Simple pin code text input with underlines for each character placeholder",
+  "homepage": "https://github.com/tkach/PinCodeTextField",
+  "license": {
+    "type": "MIT"
+  },
+  "authors": {
+    "Alex Tkachenko": "tkach2004@gmail.com"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source": {
+    "git": "https://github.com/tkach/PinCodeTextField.git",
+    "tag": "0.0.4"
+  },
+  "default_subspecs": "Swift",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": [
+        "Pod/Common/*.{swift}",
+        "Pod/Common/**/*.{swift}"
+      ]
+    },
+    {
+      "name": "ObjC",
+      "dependencies": {
+        "PinCodeTextField/Core": [
+
+        ]
+      },
+      "source_files": [
+        "Pod/Objective-C/*.swift"
+      ]
+    },
+    {
+      "name": "Swift",
+      "dependencies": {
+        "PinCodeTextField/Core": [
+
+        ]
+      },
+      "source_files": [
+        "Pod/Swift/*.swift"
+      ]
+    }
+  ]
+}

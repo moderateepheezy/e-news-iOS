@@ -8,7 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
-import Firebase
+import FirebaseAuth
 
 public protocol PhoneNumberViewControllerDelegate {
     func phoneNumberViewController(_ phoneNumberViewController: PhoneNumberViewController, didEnterPhoneNumber phoneNumber: String)
@@ -183,7 +183,29 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
             if first4 == "+234" && number.characters.count == 14{
                 print("Welcome to Nigeria")
                 
-                saveMssisdn(msisdn: number)
+                let alert = UIAlertController(title: "Phone ", message: "Is this your phone number \(number)?", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Yes", style: .default, handler: { (UIAlertAction) in
+                    PhoneAuthProvider.provider().verifyPhoneNumber(number, completion: { (verificationID, error) in
+                        
+                        if error != nil{
+                            print("\(error.debugDescription)")
+                        }else{
+                            let defaults = UserDefaults.standard
+                            defaults.setValue(verificationID, forKey: "authVID")
+                            
+                            self.performSegue(withIdentifier: "pushToVerify", sender: Any?.self)
+                        }
+                        
+                    })
+                })
+                
+                let cancel  = UIAlertAction(title: "No", style: .default, handler: nil)
+                
+                alert.addAction(action)
+                alert.addAction(cancel)
+                
+                self.present(alert, animated: true, completion: nil)
                 
             }else if first4 == "+220" && number.characters.count == 13{
                 print("Welcome to Gambia")
@@ -214,47 +236,9 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
        // doneBarButtonItem.isEnabled = validCountry && validPhoneNumber
     }
     
-    fileprivate func saveMssisdn(msisdn: String){
-        startAnimating(CGSize(width:100, height: 100), type: .ballPulse, color: .white, padding: 30)
-        
-        print(msisdn)
-        
-        AppFirRef.subscriberRef.queryOrdered(byChild: "msisdn").queryEqual(toValue: msisdn).observeSingleEvent(of: .value, with: { (snapshot) in
-            
-        print(snapshot)
-            
-            if snapshot.childrenCount > 0{
-                print(snapshot)
-                
-                for case let snap as FIRDataSnapshot in snapshot.children{
-                    
-                    let subscriberKey = snap.key
-                    
-                    UserDefaults.standard.setUserKey(value: subscriberKey)
-                    
-                }
-                self.goToMain()
-            }else{
-                print(snapshot)
-                let newsubscriber = AppFirRef.subscriberRef.childByAutoId()
-                newsubscriber.child("msisdn").setValue(msisdn, withCompletionBlock: { (error, ref) in
-    
-                    if error != nil{
-                        return
-                    }
-                    
-                    UserDefaults.standard.setUserKey(value: newsubscriber.key)
-                    self.goToMain()
-                })
-            }
-            
-            UserDefaults.standard.setMsisdn(value: msisdn)
-        })
-    }
-    
     private func goToMain(){
         stopAnimating()
-        let mainVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTab") as! MainTabBarController
+        let mainVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "pushToVerify") as! MainTabBarController
         present(mainVc, animated: true, completion: nil)
     }
     

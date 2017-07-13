@@ -8,10 +8,13 @@
 
 import UIKit
 import Firebase
-import GoogleSignIn
+import Google
 import FBSDKLoginKit
 import FBSDKCoreKit
 import IQKeyboardManagerSwift
+import FirebaseAuth
+import FirebaseMessaging
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,10 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UITabBar.appearance().tintColor = .black
         
-        FIRApp.configure()
+        FirebaseApp.configure()
         
         
-        FIRDatabase.database().persistenceEnabled = true
+        Database.database().isPersistenceEnabled = true
         
         window =  UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
@@ -40,19 +43,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
-        let vendorRef = FIRDatabase.database().reference(withPath: "newspapers")
+        let vendorRef = Database.database().reference(withPath: "newspapers")
         vendorRef.keepSynced(true)
         
-        let commentRef = FIRDatabase.database().reference(withPath: "comments")
+        let commentRef = Database.database().reference(withPath: "comments")
         commentRef.keepSynced(true)
         
-        let newsRef = FIRDatabase.database().reference(withPath: "news")
+        let newsRef = Database.database().reference(withPath: "news")
         newsRef.keepSynced(true)
         
-        let subscriberRef = FIRDatabase.database().reference(withPath: "subscriber")
+        let subscriberRef = Database.database().reference(withPath: "subscriber")
         subscriberRef.keepSynced(true)
         
         IQKeyboardManager.sharedManager().enable = true
+        
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert], completionHandler: { (granted, error) in })
+            application.registerForRemoteNotifications()
+        } else {
+            // Fallback on earlier versions
+            let notificationSettings = UIUserNotificationSettings(types: [.badge, .alert, .sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+            UIApplication.shared.registerForRemoteNotifications()
+        }
         
         return true
     }
