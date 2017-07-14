@@ -43,17 +43,21 @@ class VendorViewController: UIViewController {
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 //        navigationController?.navigationBar.shadowImage = UIImage()
         
+        AppFirRef.newspaperRef.observe(.childAdded, with: { (snapshot) in
+            guard let value = snapshot.value as? [String : Any] else { return }
+            let newspaper = NewsPaper(value: value, vendorKey: snapshot.key)
+            
+            if newspaper.news != nil && "deleted" != newspaper.status {
+                self.vendors.append(newspaper)
+            }
+        }, withCancel: nil)
         
         AppFirRef.newspaperRef.observe(.value, with: { (snapshot) in
             
             for case let snap as DataSnapshot in snapshot.children{
                 guard let value = snap.value as? [String : Any] else { return }
                 
-                let newspaper = NewsPaper(value: value, vendorKey: snap.key)
                 
-                if newspaper.news != nil && "deleted" != newspaper.status {
-                    self.vendors.append(newspaper)
-                }
                 
             }
             
