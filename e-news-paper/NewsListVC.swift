@@ -46,20 +46,17 @@ class NewsListVC: UIViewController {
         tableView.dataSource = self
         
         //navigationItem.title = vendor?.paper_name
-        
-        AppFirRef.newsRef.queryOrdered(byChild: "newspaper_id").queryEqual(toValue: vendor?.vendorKey).observe(.value, with: { (snapshot) in
-            for case let snap as DataSnapshot in snapshot.children{
-                guard let value = snap.value as? [String : Any] else { return }
-                
-                let news = News(value: value, newsKey: snap.key)
-                self.newses.append(news)
-                
-            }
+        AppFirRef.newsRef.queryOrdered(byChild: "newspaper_id").queryEqual(toValue: vendor?.vendorKey).observe(.childAdded, with: { (snapshot) in
+            guard let value = snapshot.value as? [String : Any] else { return }
+            
+            let news = News(value: value, newsKey: snapshot.key)
+            self.newses.append(news)
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        })
+        }, withCancel: nil)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

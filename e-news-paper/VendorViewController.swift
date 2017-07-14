@@ -50,22 +50,12 @@ class VendorViewController: UIViewController {
             if newspaper.news != nil && "deleted" != newspaper.status {
                 self.vendors.append(newspaper)
             }
-        }, withCancel: nil)
-        
-        AppFirRef.newspaperRef.observe(.value, with: { (snapshot) in
             
-            for case let snap as DataSnapshot in snapshot.children{
-                guard let value = snap.value as? [String : Any] else { return }
-                
-                
-                
-            }
-            
-
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        })
+        }, withCancel: nil)
+        
     }
     
     func search(){
