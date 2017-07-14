@@ -17,13 +17,14 @@ class ProfileViewController: UIViewController {
     var user: User?
     
     @IBOutlet weak var tableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         tableView.delegate = self
         tableView.dataSource = self
         
+        self.navigationItem.title = Localization("profileText")
 //        navigationController?.navigationBar.isTranslucent = true
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 //        navigationController?.navigationBar.shadowImage = UIImage()
@@ -123,6 +124,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "readNewsCell", for: indexPath) as! ReadNewsCell
+        cell.profileController = self
         return cell
     }
     

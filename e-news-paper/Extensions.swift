@@ -90,3 +90,10 @@ extension Date {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds / 1000))
     }
 }
+
+extension NSLayoutConstraint {
+    
+    override open var description: String {
+        return "id: \(identifier ?? ""), constant: \(constant)"
+    }
+}

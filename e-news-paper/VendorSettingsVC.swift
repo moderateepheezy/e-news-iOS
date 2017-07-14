@@ -28,12 +28,15 @@ class VendorSettingsVC: UIViewController {
         
     }
     
+    @IBOutlet weak var expireDateLabel: UILabel!
+    @IBOutlet weak var enableLocationLabel: UILabel!
+    
     
     @IBAction func subscribeButtonTapped(_ sender: Any) {
         
         if(isSubscribed){
             isSubscribed = false
-            self.subscribeButton.setTitle("Subscribe", for: .normal)
+            self.subscribeButton.setTitle(Localization("unsubscribeText"), for: .normal)
             subscribeButton.backgroundColor = .black
             unSubscribe(vendorId: (vendor?.vendorKey)!)
         }else{
@@ -53,7 +56,14 @@ class VendorSettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLanguageChangedNotification(notification:)), name: kNotificationLanguageChanged, object: nil)
+        
         loadButtonstate()
+        
+        expireDateLabel.text = Localization("expiryText")
+        enableLocationLabel.text = Localization("enableNotifText")
+        extendButton.setTitle(Localization("extendText"), for: .normal)
+        
         
     }
     
@@ -65,6 +75,20 @@ class VendorSettingsVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         loadButtonstate()
+    }
+    
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            subscribeButton.setTitle(Localization("subscribeText"), for: .normal)
+            expireDateLabel.text = Localization("expiryText")
+            enableLocationLabel.text = Localization("enableNotifText")
+            extendButton.setTitle(Localization("extendText"), for: .normal)
+        }
+    }
+    
+    // MARK: - Memory management
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
     }
     
     func timelyConfig(){

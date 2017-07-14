@@ -30,7 +30,20 @@ public class NewsPaper{
         self.news = value["news"] as? [String: Any]
         let firs = self.news?.first?.value as? NSDictionary
         let caption = firs?.value(forKey: "caption") as? NSDictionary
-        self.firstNews = caption?.value(forKey: "english") as? String
+        
+        if Localization("English_en") == "Anglais" {
+            if caption?.value(forKey: "french") as? String != "" {
+                self.firstNews = caption?.value(forKey: "french") as? String
+            }else{
+                self.firstNews = caption?.value(forKey: "english") as? String
+            }
+        }else{
+            if caption?.value(forKey: "english") as? String != "" {
+                self.firstNews = caption?.value(forKey: "english") as? String
+            }else{
+                self.firstNews = caption?.value(forKey: "french") as? String
+            }
+        }
     }
 }
 

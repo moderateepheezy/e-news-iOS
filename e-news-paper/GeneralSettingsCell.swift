@@ -21,6 +21,12 @@ class GeneralSettingsCell: UITableViewCell {
     
     @IBOutlet weak var changeLanguageButton: UIButton!
     
+    @IBOutlet weak var generalLabel: UILabel!
+    @IBOutlet weak var generalNotifLabel: UILabel!
+    @IBOutlet weak var signoutLabel: UILabel!
+    @IBOutlet weak var unSubscribeAllLabel: UILabel!
+    
+    
     
     @IBAction func changeLanguageTapped(_ sender: Any) {
         
@@ -29,6 +35,29 @@ class GeneralSettingsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(receiveLanguageChangedNotification(notification:)), name: kNotificationLanguageChanged, object: nil)
+        
+    changeLanguageButton.setTitle(Localization("changeLanguaeText"), for: .normal)
+        
+        generalLabel.text = Localization("generalText")
+        generalNotifLabel.text = Localization("generalNotifText")
+        signoutLabel.text = Localization("signoutText")
+        unSubscribeAllLabel.text = Localization("unSubscribeAllText")
+    }
+    
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            generalLabel.text = Localization("generalText")
+            generalNotifLabel.text = Localization("generalNotifText")
+            signoutLabel.text = Localization("signoutText")
+            unSubscribeAllLabel.text = Localization("unSubscribeAllText")
+        }
+    }
+    
+    // MARK: - Memory management
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -12,7 +12,21 @@ class NewsListCell: UITableViewCell {
     
     var news: News?{
         didSet{
-            newsTitleLabel.text = news?.caption.english
+            
+            if Localization("English_en") == "Anglais" {
+                if news?.caption.french != "" {
+                    newsTitleLabel.text = news?.caption.french
+                }else{
+                    newsTitleLabel.text = news?.caption.english
+                }
+            }else{
+                if news?.caption.english != "" {
+                    newsTitleLabel.text = news?.caption.english
+                }else{
+                    newsTitleLabel.text = news?.caption.french
+                }
+            }
+            
             if let created = news?.created_on {
                 
                 let epocTime = TimeInterval(created)

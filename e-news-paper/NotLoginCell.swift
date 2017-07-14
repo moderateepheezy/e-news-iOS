@@ -17,6 +17,8 @@ class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
     
     var profileController: ProfileViewController?
     
+    @IBOutlet weak var facebookButton: UIButton!
+    @IBOutlet weak var googleButton: UIButton!
     
     @IBAction func facebookLoginTapped(_ sender: Any) {
         
@@ -106,6 +108,22 @@ class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLanguageChangedNotification(notification:)), name: kNotificationLanguageChanged, object: nil)
+        
+        facebookButton.setTitle(Localization("facebookText"), for: .normal)
+        googleButton.setTitle(Localization("googleText"), for: .normal)
+    }
+    
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            facebookButton.setTitle(Localization("facebookText"), for: .normal)
+            googleButton.setTitle(Localization("googleText"), for: .normal)
+        }
+    }
+    
+    // MARK: - Memory management
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

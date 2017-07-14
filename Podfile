@@ -6,6 +6,7 @@ target 'e-news-paper' do
   use_frameworks!
 
   # Pods for e-news-paper
+  pod 'BSForegroundNotification'
   pod 'Localize-Swift', '~> 1.7'
   pod 'PinCodeTextField', :git => "https://github.com/tkach/PinCodeTextField"
   pod 'MaterialCard'

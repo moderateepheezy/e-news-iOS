@@ -61,8 +61,22 @@ class VendorCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        subscribedButton.layer.cornerRadius = subscribedButton.frame.height / 2
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLanguageChangedNotification(notification:)), name: kNotificationLanguageChanged, object: nil)
         
+        subscribedButton.layer.cornerRadius = subscribedButton.frame.height / 2
+        subscribedButton.setTitle(Localization("subscribeText"), for: .normal)
+        
+    }
+    
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            subscribedButton.setTitle(Localization("subscribeText"), for: .normal)
+        }
+    }
+    
+    // MARK: - Memory management
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
     }
     
     override func prepareForReuse() {

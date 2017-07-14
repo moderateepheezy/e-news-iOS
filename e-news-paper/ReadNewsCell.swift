@@ -11,14 +11,21 @@ import Firebase
 
 class ReadNewsCell: UITableViewCell {
 
+    @IBOutlet weak var readNewsLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var profileController: ProfileViewController?
     var newses = [News]()
+    
+    var vendor: NewsPaper?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
+         NotificationCenter.default.addObserver(self, selector: #selector(receiveLanguageChangedNotification(notification:)), name: kNotificationLanguageChanged, object: nil)
+        
+        readNewsLabel.text = Localization("readNewsText")
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -47,6 +54,17 @@ class ReadNewsCell: UITableViewCell {
             
         })
     }
+    
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            readNewsLabel.text = Localization("readNewsText")
+        }
+    }
+    
+    // MARK: - Memory management
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -61,6 +79,17 @@ extension ReadNewsCell: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "readNews", for: indexPath) as! ReadCell
         let news = newses[indexPath.item]
+        
+        AppFirRef.newspaperRef.child(news.newspaper_id!).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let value = snapshot.value as? [String: Any] else {
+                return
+            }
+            
+            let vendor = NewsPaper(value: value, vendorKey: snapshot.key)
+            self.vendor = vendor
+        })
+        
         cell.news = news
         
         if let imageUrl = news.thumbnail{
@@ -72,16 +101,31 @@ extension ReadNewsCell: UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 if let updateCell = tableView.cellForRow(at: indexPath) as? ReadCell {
-                    updateCell.newsImageView.or_setImageWithURL(url: url! as NSURL
-                    )
+                    updateCell.newsImageView.or_setImageWithURL(url: url! as NSURL)
                 }
-                
                 
             })
             
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        let news = newses[indexPath.item]
+        
+        let newsVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsDetailVC") as! NewsDetailVC
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        profileController?.navigationController?.navigationBar.barTintColor = .white
+        profileController?.navigationController?.navigationBar.tintColor = .black
+        profileController?.navigationItem.backBarButtonItem = backItem
+        newsVc.news = news
+        newsVc.vendor = vendor
+        newsVc.hidesBottomBarWhenPushed = true
+        profileController?.navigationController?.pushViewController(newsVc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

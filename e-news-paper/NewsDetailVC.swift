@@ -53,7 +53,7 @@ class NewsDetailVC: UIViewController {
     var vendor: NewsPaper?{
         didSet{
             let key = vendor?.vendorKey
-            let userKey = UserDefaults.standard.getUserKey()
+         let userKey = UserDefaults.standard.getUserKey()
             
             AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(key!)
                 .observeSingleEvent(of: .value, with: { (snapshot) in
@@ -61,7 +61,7 @@ class NewsDetailVC: UIViewController {
                         print(snapshot)
                         NewsDetailVC.isSubscribed = true
                         self.subscribedButton.backgroundColor = .red
-                        self.subscribedButton.setTitle("UnSubscribe", for: .normal)
+                        self.subscribedButton.setTitle(Localization("subscribeText"), for: .normal)
                         
                         
                     }
@@ -75,7 +75,7 @@ class NewsDetailVC: UIViewController {
     @IBAction func subscribeButtonTapped(_ sender: Any) {
         if(NewsDetailVC.isSubscribed){
             NewsDetailVC.isSubscribed = false
-            self.subscribedButton.setTitle("Subscribe", for: .normal)
+            self.subscribedButton.setTitle(Localization("subscribeText"), for: .normal)
             subscribedButton.backgroundColor = .black
             unSubscribe(vendorId: (vendor?.vendorKey)!)
             
@@ -105,6 +105,7 @@ class NewsDetailVC: UIViewController {
         
         commentBarButton.badgeString = "0"
         
+        subscribedButton.setTitle(Localization("subscribeText"), for: .normal)
         subscribedButton.layer.cornerRadius = subscribedButton.frame.height / 2
         
         vendorNameLabel.text = vendor?.paper_name
@@ -372,6 +373,7 @@ class NewsDescription: UITableViewCell{
         super.awakeFromNib()
         // Initialization code
         
+        showMoreButton.setTitle(Localization("moreText"), for: .normal)
         showMoreButton.layer.borderColor = UIColor.black.cgColor
         showMoreButton.layer.borderWidth = 2
         showMoreButton.layer.cornerRadius = 5
@@ -395,7 +397,21 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
         
         if indexPath.item == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTitle", for: indexPath) as! NewsTitle
-            cell.titleLabel.text = news?.caption.english
+            
+            if Localization("English_en") == "Anglais" {
+                if news?.caption.french != "" {
+                    cell.titleLabel.text = news?.caption.french
+                }else{
+                    cell.titleLabel.text = news?.caption.english
+                }
+            }else{
+                if news?.caption.english != "" {
+                    cell.titleLabel.text = news?.caption.english
+                }else{
+                    cell.titleLabel.text = news?.caption.french
+                }
+            }
+            
             return cell
         }else if indexPath.item == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImage", for: indexPath) as! NewsImage
@@ -448,7 +464,21 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
             
             cell.news = news
             if let content = news?.content {
-                cell.newsDescription.loadHTMLString(content.english!, baseURL: nil)
+                
+                if Localization("English_en") == "Anglais" {
+                    if news?.caption.french != "" {
+                        cell.newsDescription.loadHTMLString(content.french!, baseURL: nil)
+                    }else{
+                        cell.newsDescription.loadHTMLString(content.english!, baseURL: nil)
+                    }
+                }else{
+                    if news?.caption.english != "" {
+                        cell.newsDescription.loadHTMLString(content.english!, baseURL: nil)
+                    }else{
+                        cell.newsDescription.loadHTMLString(content.french!, baseURL: nil)
+                    }
+                }
+                
             }
 
             return cell

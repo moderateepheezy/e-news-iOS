@@ -23,6 +23,12 @@ class LoggedInCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLanguageChangedNotification(notification:)), name: kNotificationLanguageChanged, object: nil)
+        
+        usernameLabel.text = Localization("usernameText")
+        userEmailLabel.text = Localization("emailText")
+        userPhoneNumberLabel.text = Localization("phoneText")
+        
         userProfileImageView.layer.cornerRadius = userProfileImageView.frame.height / 2
         userProfileImageView.clipsToBounds = true
     }
@@ -31,6 +37,19 @@ class LoggedInCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            usernameLabel.text = Localization("usernameText")
+            userEmailLabel.text = Localization("emailText")
+            userPhoneNumberLabel.text = Localization("phoneText")
+        }
+    }
+    
+    // MARK: - Memory management
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
     }
 
 }

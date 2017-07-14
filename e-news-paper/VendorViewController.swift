@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import BSForegroundNotification
 
 class VendorViewController: UIViewController {
 
@@ -31,6 +32,7 @@ class VendorViewController: UIViewController {
         let searchBarButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(search))
         searchBarButton.tintColor = UIColor.black
         
+        self.navigationItem.title = Localization("vendorText")
         
         self.navigationItem.rightBarButtonItems = [ searchBarButton]
         
@@ -80,6 +82,7 @@ class VendorViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItems = [ searchBarButton]
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)

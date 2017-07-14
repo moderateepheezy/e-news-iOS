@@ -14,12 +14,29 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLanguageChangedNotification(notification:)), name: kNotificationLanguageChanged, object: nil)
+        
         if(isLoggedin()){
             setupTab()
         }else{
             perform(#selector(showLoginController), with: nil,afterDelay: 0.01)
         }
         
+    }
+    
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            if(isLoggedin()){
+                setupTab()
+            }else{
+                perform(#selector(showLoginController), with: nil,afterDelay: 0.01)
+            }
+        }
+    }
+    
+    // MARK: - Memory management
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
     }
     
     fileprivate func isLoggedin() -> Bool {
@@ -42,15 +59,15 @@ class MainTabBarController: UITabBarController {
         
         let vendor = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VendorViewController")
         let vendorVC = UINavigationController(rootViewController: vendor)
-        vendorVC.tabBarItem = UITabBarItem(title: "VENDOR", image: #imageLiteral(resourceName: "add_list"), tag: 0)
+        vendorVC.tabBarItem = UITabBarItem(title: Localization("vendorText"), image: #imageLiteral(resourceName: "add_list"), tag: 0)
         
         let library = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LibraryViewController")
         let libraryVC = UINavigationController(rootViewController: library)
-        libraryVC.tabBarItem = UITabBarItem(title: "LIBRARY", image: #imageLiteral(resourceName: "stack"), tag: 0)
+        libraryVC.tabBarItem = UITabBarItem(title: Localization("libraryText"), image: #imageLiteral(resourceName: "stack"), tag: 0)
         
         let profile = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController")
         let profileVC = UINavigationController(rootViewController: profile)
-        profileVC.tabBarItem = UITabBarItem(title: "PROFILE", image: #imageLiteral(resourceName: "user"), tag: 0)
+        profileVC.tabBarItem = UITabBarItem(title: Localization("profileText"), image: #imageLiteral(resourceName: "user"), tag: 0)
         
         self.viewControllers = [vendorVC, libraryVC, profileVC]
         self.selectedIndex = 0

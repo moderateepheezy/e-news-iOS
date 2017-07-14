@@ -1,0 +1,120 @@
+
+/* Class = "UILabel"; text = "0"; ObjectID = "0CX-2Q-93S"; */
+"0CX-2Q-93S.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "SUBCRIBE"; ObjectID = "2A5-sr-kDS"; */
+"2A5-sr-kDS.normalTitle" = "SUBCRIBE";
+
+/* Class = "UIButton"; normalTitle = "Verify"; ObjectID = "4a3-5R-UO8"; */
+"4a3-5R-UO8.normalTitle" = "Verify";
+
+/* Class = "UINavigationItem"; title = "General Settings"; ObjectID = "57q-9w-Hkz"; */
+"57q-9w-Hkz.title" = "General Settings";
+
+/* Class = "UINavigationItem"; title = "VENDOR"; ObjectID = "5LP-2g-69N"; */
+"5LP-2g-69N.title" = "VENDOR";
+
+/* Class = "UILabel"; text = "Choose your language :"; ObjectID = "6AN-zR-aar"; */
+"6AN-zR-aar.text" = "Choose your language :";
+
+/* Class = "UIButton"; normalTitle = "Read More"; ObjectID = "E83-GG-3xj"; */
+"E83-GG-3xj.normalTitle" = "Read More";
+
+/* Class = "UIButton"; normalTitle = "Nigeria"; ObjectID = "EvW-ST-cSY"; */
+"EvW-ST-cSY.normalTitle" = "Nigeria";
+
+/* Class = "UILabel"; text = "labelSaveLanguage"; ObjectID = "F45-8h-5mh"; */
+"F45-8h-5mh.text" = "labelSaveLanguage";
+
+/* Class = "UILabel"; text = "GENERAL"; ObjectID = "HWP-n2-IYQ"; */
+"HWP-n2-IYQ.text" = "GENERAL";
+
+/* Class = "UINavigationItem"; title = "PROFILE"; ObjectID = "HkY-VJ-z4F"; */
+"HkY-VJ-z4F.title" = "PROFILE";
+
+/* Class = "UILabel"; text = "11th of December 2017"; ObjectID = "JZn-Lk-RjG"; */
+"JZn-Lk-RjG.text" = "11th of December 2017";
+
+/* Class = "UIButton"; normalTitle = "SUBSCRIBE"; ObjectID = "SOT-TE-WVE"; */
+"SOT-TE-WVE.normalTitle" = "SUBSCRIBE";
+
+/* Class = "UIButton"; normalTitle = "Extend subscriptions"; ObjectID = "Tft-6q-GWw"; */
+"Tft-6q-GWw.normalTitle" = "Extend subscriptions";
+
+/* Class = "UILabel"; text = "Read News"; ObjectID = "U3g-lL-HWH"; */
+"U3g-lL-HWH.text" = "Read News";
+
+/* Class = "UIButton"; normalTitle = "Login With Facebook"; ObjectID = "UiY-7S-wMy"; */
+"UiY-7S-wMy.normalTitle" = "Login With Facebook";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "W4n-gK-bHv"; */
+"W4n-gK-bHv.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Change Language"; ObjectID = "XAj-Qj-99a"; */
+"XAj-Qj-99a.normalTitle" = "Change Language";
+
+/* Class = "UIButton"; normalTitle = "Login With Google"; ObjectID = "YaY-ga-y0x"; */
+"YaY-ga-y0x.normalTitle" = "Login With Google";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ZK4-pZ-dTE"; */
+"ZK4-pZ-dTE.text" = "Label";
+
+/* Class = "UILabel"; text = "Enter the OTP Code sent to your device, if you did not get any, try again after 2 minutes"; ObjectID = "cgJ-5D-kSF"; */
+"cgJ-5D-kSF.text" = "Enter the OTP Code sent to your device, if you did not get any, try again after 2 minutes";
+
+/* Class = "UILabel"; text = "Enable Notification"; ObjectID = "fCr-yH-rdd"; */
+"fCr-yH-rdd.text" = "Enable Notification";
+
+/* Class = "UINavigationItem"; title = "Comments"; ObjectID = "fdb-tJ-SLh"; */
+"fdb-tJ-SLh.title" = "Comments";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "g0J-GG-aKo"; */
+"g0J-GG-aKo.text" = "Label";
+
+/* Class = "UITextField"; text = "+234"; ObjectID = "hCh-Du-6LN"; */
+"hCh-Du-6LN.text" = "+234";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "j2t-us-e1g"; */
+"j2t-us-e1g.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jUi-w5-Fh3"; */
+"jUi-w5-Fh3.text" = "Label";
+
+/* Class = "UILabel"; text = "ACCOUNT"; ObjectID = "kBl-kZ-jar"; */
+"kBl-kZ-jar.text" = "ACCOUNT";
+
+/* Class = "UILabel"; text = "Unsubscribe from all Vendors"; ObjectID = "qHk-14-x4z"; */
+"qHk-14-x4z.text" = "Unsubscribe from all Vendors";
+
+/* Class = "UILabel"; text = "A new post"; ObjectID = "r8p-Z0-z2W"; */
+"r8p-Z0-z2W.text" = "A new post";
+
+/* Class = "UILabel"; text = "labelCurrentLanguage"; ObjectID = "see-xl-Z4Z"; */
+"see-xl-Z4Z.text" = "labelCurrentLanguage";
+
+/* Class = "UIButton"; normalTitle = "Go"; ObjectID = "u4n-Ec-RdY"; */
+"u4n-Ec-RdY.normalTitle" = "Go";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "vGv-hQ-Mse"; */
+"vGv-hQ-Mse.text" = "Label";
+
+/* Class = "UILabel"; text = "Expiry Date"; ObjectID = "vqs-Rm-9Ss"; */
+"vqs-Rm-9Ss.text" = "Expiry Date";
+
+/* Class = "UILabel"; text = "General Notifications"; ObjectID = "wS4-Hz-VqL"; */
+"wS4-Hz-VqL.text" = "General Notifications";
+
+/* Class = "UILabel"; text = "Sign out from"; ObjectID = "y4X-aH-ctd"; */
+"y4X-aH-ctd.text" = "Sign out from";
+
+/* Class = "UINavigationItem"; title = "LIBRARY"; ObjectID = "yWT-Dx-fMP"; */
+"yWT-Dx-fMP.title" = "LIBRARY";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zie-um-YcA"; */
+"zie-um-YcA.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "zsG-ac-CxS"; */
+"zsG-ac-CxS.normalTitle" = "Send";
+
+/* Class = "UIButton"; normalTitle = "Subscribe"; ObjectID = "zvU-cO-FsW"; */
+"zvU-cO-FsW.normalTitle" = "Subscribe";

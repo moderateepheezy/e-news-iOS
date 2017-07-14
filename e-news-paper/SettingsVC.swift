@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Localize_Swift
 
 class SettingsVC: UIViewController {
     
@@ -16,15 +15,19 @@ class SettingsVC: UIViewController {
     var user: User?
 
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var accountLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        accountLabel.text = Localization("accountText")
+        
         tableView.delegate = self
         tableView.dataSource = self
         
         getUser()
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -33,6 +36,42 @@ class SettingsVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         getUser()
+    }
+    
+    
+    func subType(){
+        let optionMenu = UIAlertController(title: nil, message: "", preferredStyle: .actionSheet)
+        
+        let attributedString = NSAttributedString(string: "Choose Option", attributes: [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 15), //your font here
+            NSForegroundColorAttributeName : UIColor.black
+            ])
+        
+        optionMenu.setValue(attributedString, forKey: "attributedTitle")
+        
+        let directAction = UIAlertAction(title: "English", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        let mobileAction = UIAlertAction(title: "French", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        
+        
+        
+        
+        optionMenu.addAction(directAction)
+        optionMenu.addAction(mobileAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
+        
     }
     
     
@@ -52,6 +91,11 @@ class SettingsVC: UIViewController {
             }
         })
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
+    }
+    
 
 }
 

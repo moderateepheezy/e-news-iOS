@@ -248,7 +248,7 @@ extension UIImageView {
         
         // Pass directly to SDWebImage if not in testing environment
         guard NSClassFromString("XCTest") != nil else {
-            sd_setImage(with: url as URL, placeholderImage: UIImage(named: "denews"))
+            sd_setImage(with: url as URL, placeholderImage: UIImage(named: "default"))
             return
             
         }

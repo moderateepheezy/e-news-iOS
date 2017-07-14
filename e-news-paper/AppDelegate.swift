@@ -15,6 +15,7 @@ import IQKeyboardManagerSwift
 import FirebaseAuth
 import FirebaseMessaging
 import UserNotifications
+import BSForegroundNotification
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = .black
         
         FirebaseApp.configure()
-        
         
         Database.database().isPersistenceEnabled = true
         
@@ -67,11 +67,73 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.registerUserNotificationSettings(notificationSettings)
             UIApplication.shared.registerForRemoteNotifications()
         }
+        //checkChildAdded()
+        registerNotifications()
         
         return true
     }
     
-
+    private func registerNotifications() {
+        
+        let settings = UIUserNotificationSettings(types: [.alert, .sound, .badge], categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(settings)
+        createLocalNotification()
+    }
+    
+    func createLocalNotification(){
+        let localNotification = UILocalNotification()
+        localNotification.fireDate = Date(timeIntervalSince1970: 10)
+        localNotification.applicationIconBadgeNumber = 1
+        localNotification.soundName = UILocalNotificationDefaultSoundName
+        localNotification.userInfo = [
+            "message": "A new item has been added!"
+        ]
+        
+        localNotification.alertBody = "A new item has been added!"
+        UIApplication.shared.scheduleLocalNotification(localNotification)
+    }
+    
+    func takeActionWithNotification(localNotification: UILocalNotification){
+        let tabbarController = self.window?.rootViewController as! UITabBarController
+        tabbarController.selectedIndex = 0
+    }
+    
+    
+    
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        if application.applicationState == .active {
+            
+        }else{
+            self.takeActionWithNotification(localNotification: notification)
+        }
+    }
+    
+    func checkChildAdded(){
+        AppFirRef.newspaperRef.observe(.childChanged, with: { (snapshot) in
+            self.registerNotifications()
+            
+            print("IT got here!!!")
+        })
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
+        // Print notification payload data
+        print("Push notification received: \(data)")
+    }
+    
+    func foregroundRemoteNotificationWasTouched(with userInfo: [AnyHashable: Any]) {
+        //responseLabel.text = "touched"
+    }
+    
+    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable: Any], completionHandler: @escaping () -> Void) {
+        //responseLabel.text = "action: \(identifier!)"
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable: Any], withResponseInfo responseInfo: [AnyHashable: Any], completionHandler: @escaping () -> Void) {
+        //responseLabel.text = "textField: \(responseInfo[UIUserNotificationActionResponseTypedTextKey]!)"
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -27,6 +27,7 @@ class LibraryViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        self.navigationItem.title = Localization("libraryText")
         //self.automaticallyAdjustsScrollViewInsets = false
         
 //        navigationController?.navigationBar.isTranslucent = true
@@ -82,7 +83,7 @@ extension LibraryViewController: UICollectionViewDelegate, UICollectionViewDataS
                 }
                     
                     if let updateCell = collectionView.cellForItem(at: indexPath) as? LibraryCell {
-                        updateCell.vendorImage.sd_setImage(with: url, placeholderImage: UIImage(named: "denews"))
+                        updateCell.vendorImage.sd_setImage(with: url, placeholderImage: UIImage(named: "default"))
                     }
                 
                 
