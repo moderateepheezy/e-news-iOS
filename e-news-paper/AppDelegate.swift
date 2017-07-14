@@ -60,38 +60,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert], completionHandler: { (granted, error) in })
-            application.registerForRemoteNotifications()
+            //application.registerForRemoteNotifications()
         } else {
             // Fallback on earlier versions
             let notificationSettings = UIUserNotificationSettings(types: [.badge, .alert, .sound], categories: nil)
             UIApplication.shared.registerUserNotificationSettings(notificationSettings)
-            UIApplication.shared.registerForRemoteNotifications()
+            //UIApplication.shared.registerForRemoteNotifications()
         }
-        //checkChildAdded()
-        registerNotifications()
         
         return true
     }
     
-    private func registerNotifications() {
-        
-        let settings = UIUserNotificationSettings(types: [.alert, .sound, .badge], categories: nil)
-        UIApplication.shared.registerUserNotificationSettings(settings)
-        createLocalNotification()
-    }
-    
-    func createLocalNotification(){
-        let localNotification = UILocalNotification()
-        localNotification.fireDate = Date(timeIntervalSince1970: 10)
-        localNotification.applicationIconBadgeNumber = 1
-        localNotification.soundName = UILocalNotificationDefaultSoundName
-        localNotification.userInfo = [
-            "message": "A new item has been added!"
-        ]
-        
-        localNotification.alertBody = "A new item has been added!"
-        UIApplication.shared.scheduleLocalNotification(localNotification)
-    }
     
     func takeActionWithNotification(localNotification: UILocalNotification){
         let tabbarController = self.window?.rootViewController as! UITabBarController
@@ -108,26 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func checkChildAdded(){
-        AppFirRef.newspaperRef.observe(.childChanged, with: { (snapshot) in
-            self.registerNotifications()
-            
-            print("IT got here!!!")
-        })
-    }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
-        // Print notification payload data
-        print("Push notification received: \(data)")
-    }
-    
-    func foregroundRemoteNotificationWasTouched(with userInfo: [AnyHashable: Any]) {
-        //responseLabel.text = "touched"
-    }
-    
-    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable: Any], completionHandler: @escaping () -> Void) {
-        //responseLabel.text = "action: \(identifier!)"
-    }
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable: Any], withResponseInfo responseInfo: [AnyHashable: Any], completionHandler: @escaping () -> Void) {

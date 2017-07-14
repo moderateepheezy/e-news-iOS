@@ -22,6 +22,7 @@ class MainTabBarController: UITabBarController {
             perform(#selector(showLoginController), with: nil,afterDelay: 0.01)
         }
         
+        checkChildAdded()
     }
     
     func receiveLanguageChangedNotification(notification:NSNotification) {
@@ -32,6 +33,27 @@ class MainTabBarController: UITabBarController {
                 perform(#selector(showLoginController), with: nil,afterDelay: 0.01)
             }
         }
+    }
+    
+    func checkChildAdded(){
+        AppFirRef.newspaperRef.observe(.childChanged, with: { (snapshot) in
+            self.createLocalNotification()
+            
+            print("IT got here!!!")
+        })
+    }
+    
+    func createLocalNotification(){
+        let localNotification = UILocalNotification()
+        localNotification.fireDate = Date(timeIntervalSince1970: 10)
+        localNotification.applicationIconBadgeNumber = 1
+        localNotification.soundName = UILocalNotificationDefaultSoundName
+        localNotification.userInfo = [
+            "message": "A new item has been added!"
+        ]
+        
+        localNotification.alertBody = "A new item has been added!"
+        UIApplication.shared.scheduleLocalNotification(localNotification)
     }
     
     // MARK: - Memory management
