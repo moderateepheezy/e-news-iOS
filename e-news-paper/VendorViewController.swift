@@ -22,6 +22,8 @@ class VendorViewController: UIViewController {
     
     var filtered = [NewsPaper]()
     
+    fileprivate var storageRef = Storage.storage().reference()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +40,7 @@ class VendorViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        self.automaticallyAdjustsScrollViewInsets =  false
 //
 //        navigationController?.navigationBar.isTranslucent = true
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -104,7 +107,13 @@ class VendorViewController: UIViewController {
             }
         }
     }
-
+    
+//    override func viewDidLayoutSubviews() {
+//        if let rect = self.navigationController?.navigationBar.frame {
+//            let y = rect.size.height + rect.origin.y
+//            self.tableView.contentInset = UIEdgeInsetsMake( y, 0, 0, 0)
+//        }
+//    }
 }
 
 extension VendorViewController: UITableViewDelegate, UITableViewDataSource {
@@ -150,24 +159,12 @@ extension VendorViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.vendorViewController = self
         
-        if let imageUrl = vendor.logo{
-            
-            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-            vendorStorageRef.downloadURL(completion: { (url, error) in
-                if error != nil{
-                    return
-                }
-                
-                    if let updateCell = tableView.cellForRow(at: indexPath) as? VendorCell {
-                        updateCell.vendorImageView.or_setImageWithURL(url: url! as NSURL
-                        )
-                    }
-            
-                
-            })
-            
+        if let path = vendor.logo{
+            if let url = URL(string: path) {
+                self.storageRef = Storage.storage().reference(withPath: url.path)
+                cell.vendorImageView.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
+            }
         }
-        
         
         return cell
     }

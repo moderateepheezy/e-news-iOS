@@ -18,6 +18,7 @@ class LibraryViewController: UIViewController {
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 0, left: 5.0, bottom: 0, right: 5.0)
     
+    fileprivate var storageRef = Storage.storage().reference()
     
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -74,21 +75,11 @@ extension LibraryViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         cell.set =  s
         
-        if let imageUrl = s.logo{
-            
-            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-            vendorStorageRef.downloadURL(completion: { (url, error) in
-                if error != nil{
-                    return
-                }
-                    
-                    if let updateCell = collectionView.cellForItem(at: indexPath) as? LibraryCell {
-                        updateCell.vendorImage.sd_setImage(with: url, placeholderImage: UIImage(named: "default"))
-                    }
-                
-                
-            })
-            
+        if let path = s.logo{
+            if let url = URL(string: path) {
+                self.storageRef = Storage.storage().reference(withPath: url.path)
+                cell.vendorImage.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
+            }
         }
         
         return cell

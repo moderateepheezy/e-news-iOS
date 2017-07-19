@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import MIBadgeButton_Swift
+import FirebaseStorageUI
 
 let myNotificationKey = "notificationKey"
 
@@ -20,6 +21,7 @@ class NewsDetailVC: UIViewController {
     
     var news: News?
     
+    fileprivate var storageRef = Storage.storage().reference()
     
     @IBOutlet weak var vendorNameLabel: UILabel!
     
@@ -124,21 +126,11 @@ class NewsDetailVC: UIViewController {
         }
         
         
-        if let imageUrl = vendor?.logo{
-            let imageLoader = ImageCacheLoader()
-            
-            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-            vendorStorageRef.downloadURL(completion: { (url, error) in
-                if error != nil{
-                    return
-                }
-                
-                imageLoader.obtainImageWithPath(imagePath: (url?.absoluteString)!) { (image) in
-                    self.vendorImageView.image = image
-                }
-                
-            })
-            
+        if let path = vendor?.logo{
+            if let url = URL(string: path) {
+                self.storageRef = Storage.storage().reference(withPath: url.path)
+                self.vendorImageView.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
+            }
         }
         
         getCommentCounts()
@@ -154,23 +146,14 @@ class NewsDetailVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        if let imageUrl = vendor?.logo{
-            
-            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-            vendorStorageRef.downloadURL(completion: { (url, error) in
-                if error != nil{
-                    return
-                }
-                
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 40))
-                imageView.contentMode = .scaleAspectFit
-                
-                imageView.or_noPlaceHolderSetWithURL(url: url! as NSURL)
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 40))
+        imageView.contentMode = .scaleAspectFit
+        if let path = vendor?.logo{
+            if let url = URL(string: path) {
+                self.storageRef = Storage.storage().reference(withPath: url.path)
+                imageView.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
                 self.navigationItem.titleView = imageView
-                
-            })
-            
+            }
         }
     }
     
@@ -416,23 +399,12 @@ extension NewsDetailVC: UITableViewDelegate, UITableViewDataSource{
         }else if indexPath.item == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImage", for: indexPath) as! NewsImage
             
-            if let imageUrl = news?.thumbnail{
-                
-                let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-                vendorStorageRef.downloadURL(completion: { (url, error) in
-                    if error != nil{
-                        return
-                    }
-                        // Before assigning the image, check whether the current cell is visible for ensuring that it's right cell
-                        if let updateCell = tableView.cellForRow(at: indexPath) as? NewsImage {
-                            updateCell.newsImageView.or_setImageWithURL(url: url! as NSURL)
-                        }
-                    
-                    
-                })
-                
+            if let path = news?.thumbnail{
+                if let url = URL(string: path) {
+                    self.storageRef = Storage.storage().reference(withPath: url.path)
+                    cell.newsImageView.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
+                }
             }
-            
             
             return cell
         }else{

@@ -36,10 +36,9 @@ class MainTabBarController: UITabBarController {
     }
     
     func checkChildAdded(){
-        AppFirRef.newspaperRef.observe(.childChanged, with: { (snapshot) in
+        AppFirRef.newspaperRef.observe(.childAdded, with: { (snapshot) in
             self.createLocalNotification()
             
-            print("IT got here!!!")
         })
     }
     
@@ -54,6 +53,14 @@ class MainTabBarController: UITabBarController {
         
         localNotification.alertBody = "A new item has been added!"
         UIApplication.shared.scheduleLocalNotification(localNotification)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(isLoggedin()){
+            setupTab()
+        }else{
+            perform(#selector(showLoginController), with: nil,afterDelay: 0.01)
+        }
     }
     
     // MARK: - Memory management

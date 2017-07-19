@@ -77,7 +77,6 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
         //phoneNumberTextField.becomeFirstResponder()
     }
     
-
     
     @IBAction fileprivate func changeCountry(_ sender: UIButton) {
         let countriesViewController = CountriesViewController.standardController()
@@ -234,12 +233,6 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
         _ = phoneNumberIsValid
         
        // doneBarButtonItem.isEnabled = validCountry && validPhoneNumber
-    }
-    
-    private func goToMain(){
-        stopAnimating()
-        let mainVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "pushToVerify") as! MainTabBarController
-        present(mainVc, animated: true, completion: nil)
     }
     
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-import SDWebImage
+import FirebaseStorageUI
 
 class NewsListVC: UIViewController {
 
@@ -17,6 +17,8 @@ class NewsListVC: UIViewController {
     fileprivate var searchBar: UISearchBar!
     
     var searchActive : Bool = false
+    
+    fileprivate var storageRef = Storage.storage().reference()
     
     var vendor: NewsPaper?
     
@@ -60,23 +62,14 @@ class NewsListVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        if let imageUrl = vendor?.logo{
-            
-            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-            vendorStorageRef.downloadURL(completion: { (url, error) in
-                if error != nil{
-                    return
-                }
-                
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 40))
-                imageView.contentMode = .scaleAspectFit
-                
-                imageView.or_noPlaceHolderSetWithURL(url: url! as NSURL)
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 40))
+        imageView.contentMode = .scaleAspectFit
+        if let path = vendor?.logo{
+            if let url = URL(string: path) {
+                self.storageRef = Storage.storage().reference(withPath: url.path)
+                imageView.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
                 self.navigationItem.titleView = imageView
-                
-            })
-            
+            }
         }
     }
     
@@ -153,26 +146,17 @@ extension NewsListVC: UITableViewDataSource, UITableViewDelegate{
         
         cell.news = news
         
-        if let imageUrl = news.thumbnail{
-            let imageLoader = ImageCacheLoader()
-            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-            vendorStorageRef.downloadURL(completion: { (url, error) in
-                if error != nil{
-                    return
-                }
-                    if let updateCell = tableView.cellForRow(at: indexPath) as? NewsListCell {
-                        
-                        imageLoader.obtainImageWithPath(imagePath: (url?.absoluteString)!) { (image) in
-                            updateCell.newsImageView.image = image
-                        }
-                    }
-            })
-            
-        }
         
+        if let path = news.thumbnail{
+            if let url = URL(string: path) {
+                self.storageRef = Storage.storage().reference(withPath: url.path)
+                cell.newsImageView.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
+            }
+        }
         
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(searchActive && searchBar.text != "") {
@@ -206,6 +190,26 @@ extension NewsListVC: UITableViewDataSource, UITableViewDelegate{
         }
         self.performSegue(withIdentifier: "ShowDetails", sender: news)
     }
+    
+    func loopWithCompletion(urls: [URL], _ indexPaths: [IndexPath], closure: () -> ()) {
+        var urlss = urls
+        for index in indexPaths{
+            let news = newses[index.row]
+            
+            if let imageUrl = news.thumbnail{
+                _ = ImageCacheLoader()
+                let vendorStorageRef = Storage.storage().reference().child(imageUrl)
+                vendorStorageRef.downloadURL(completion: { (url, error) in
+                    if error != nil{
+                        return
+                    }
+                    urlss.append(url!)
+                })
+                
+            }
+        }
+        closure()
+    }
 }
 
 extension NewsListVC: UISearchBarDelegate {
@@ -238,68 +242,3 @@ extension NewsListVC: UISearchBarDelegate {
     }
 }
 
-extension UIImageView {
-    
-    func or_setImageWithURL(url: NSURL) {
-        
-        
-        // Pass directly to SDWebImage if not in testing environment
-        guard NSClassFromString("XCTest") != nil else {
-            sd_setImage(with: url as URL, placeholderImage: UIImage(named: "default"))
-            return
-            
-        }
-        
-        // Look inside the SD Image Cache to see if our URL has already been stored
-        let imageManager = SDWebImageManager.shared()
-        let key = imageManager.cacheKey(for: url as URL)
-        
-        // If not, provide a useful error message, or optionally raise an exception
-        guard let cachedImage = imageManager.imageCache?.imageFromMemoryCache(forKey: key) else {
-            print("Detected a un-stubbed image request for URL: \(url)")
-            sd_setImage(with: url as URL)
-            return
-        }
-        
-        // Synchronously set the cached image
-        image = cachedImage
-    }
-    
-    
-    func or_setProfileImageWithURL(url: NSURL) {
-        
-        
-        // Look inside the SD Image Cache to see if our URL has already been stored
-        let imageManager = SDWebImageManager.shared()
-        let key = imageManager.cacheKey(for: url as URL)
-        
-        // If not, provide a useful error message, or optionally raise an exception
-        guard let cachedImage = imageManager.imageCache?.imageFromMemoryCache(forKey: key) else {
-            print("Detected a un-stubbed image request for URL: \(url)")
-            sd_setImage(with: url as URL, placeholderImage: UIImage(named: "pp"))
-            return
-        }
-        
-        // Synchronously set the cached image
-        image = cachedImage
-    }
-    
-    func or_noPlaceHolderSetWithURL(url: NSURL){
-        // Pass directly to SDWebImage if not in testing environment
-        
-        
-        // Look inside the SD Image Cache to see if our URL has already been stored
-        let imageManager = SDWebImageManager.shared()
-        let key = imageManager.cacheKey(for: url as URL)
-        
-        // If not, provide a useful error message, or optionally raise an exception
-        guard let cachedImage = imageManager.imageCache?.imageFromMemoryCache(forKey: key) else {
-            print("Detected a un-stubbed image request for URL: \(url)")
-            sd_setImage(with: url as URL)
-            return
-        }
-        
-        // Synchronously set the cached image
-        image = cachedImage
-    }
-}

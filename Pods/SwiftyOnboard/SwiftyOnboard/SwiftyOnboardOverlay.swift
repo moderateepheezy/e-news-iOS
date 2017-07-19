@@ -21,6 +21,10 @@ open class SwiftyOnboardOverlay: UIView {
         let button = UIButton(type: .system)
         button.setTitle("Continue", for: .normal)
         button.contentHorizontalAlignment = .center
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.layer.borderColor = UIColor.white.cgColor
+        button.clipsToBounds = true
         return button
     }()
     
@@ -80,10 +84,10 @@ open class SwiftyOnboardOverlay: UIView {
         
         self.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
-        continueButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        continueButton.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: -20).isActive = true
-        continueButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        continueButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        continueButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        continueButton.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: -45).isActive = true
+        continueButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
+        continueButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -30).isActive = true
         
         self.addSubview(skipButton)
         skipButton.translatesAutoresizingMaskIntoConstraints = false

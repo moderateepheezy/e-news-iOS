@@ -97,9 +97,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
                 
                 
                 if let imgUrl = user?.profileImage {
-                    let url = NSURL(fileURLWithPath: imgUrl)
+                    let url = URL(fileURLWithPath: imgUrl)
                     
-                    cell.userProfileImageView.or_setProfileImageWithURL(url: url)
+                    cell.userProfileImageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pp"))
                 }
                 
                 return cell
@@ -107,12 +107,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
             }else if let user = self.user,
                 let cell = tableView.dequeueReusableCell(withIdentifier: "loggedIn", for: indexPath) as? LoggedInCell {
                 
-                let url = NSURL(fileURLWithPath: user.profileImage)
+                let url = URL(fileURLWithPath: user.profileImage)
                 
                 cell.usernameLabel.text = user.username
                 cell.userEmailLabel.text = user.email
                 cell.userPhoneNumberLabel.text = user.msisdn
-                cell.userProfileImageView.or_setProfileImageWithURL(url: url)
+                cell.userProfileImageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pp"))
                 
                 return cell
                 

@@ -6,18 +6,17 @@ target 'e-news-paper' do
   use_frameworks!
 
   # Pods for e-news-paper
+  pod 'FirebaseUI/Database', '~> 4.0'
+  pod 'FirebaseUI/Storage', '~> 4.0'
+  pod 'FirebaseUI/Auth', '~> 4.0'
+  pod 'FirebaseUI/Facebook', '~> 4.0'
+  pod 'FirebaseUI/Google', '~> 4.0'
+  pod 'FirebaseUI/Phone', '~> 4.0'
+  
   pod 'BSForegroundNotification'
-  pod 'Localize-Swift', '~> 1.7'
   pod 'PinCodeTextField', :git => "https://github.com/tkach/PinCodeTextField"
   pod 'MaterialCard'
   pod 'NVActivityIndicatorView'
-  pod 'Firebase/Core', '~> 4.0.0'
-  pod 'Firebase/Database', '~> 4.0.0'
-  pod 'Firebase/Storage', '~> 4.0.0'
-  pod 'Firebase/Auth', '~> 4.0.0'
-  pod 'Firebase/Messaging', '~> 4.0.0'
-  pod 'SDWebImage', '~>4.0.0'
-  pod 'Google/SignIn'
   pod 'MIBadgeButton-Swift', :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
   pod 'SwiftyOnboard'
   pod 'IQKeyboardManagerSwift', '4.0.10'

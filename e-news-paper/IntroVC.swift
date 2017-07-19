@@ -9,7 +9,22 @@
 import UIKit
 import SwiftyOnboard
 
-class IntroVC: UIViewController {
+let mySpecialNotificationKey = "com.simpumind.e-news-paper"
+
+protocol IntroVCDelegate {
+    func closeVC()
+}
+
+class IntroVC: UIViewController, IntroVCDelegate {
+    
+    func closeVC() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func dismissVC() {
+        dismiss(animated: false, completion: nil)
+    }
+    
 
     var swiftyOnboard: SwiftyOnboard!
     let colors:[UIColor] = [#colorLiteral(red: 0.5921568627, green: 0.3843137255, blue: 0.6431372549, alpha: 1),#colorLiteral(red: 0.2156862745, green: 0.7254901961, blue: 0.937254902, alpha: 1),#colorLiteral(red: 0.7215686275, green: 0.7333333333, blue: 0.7294117647, alpha: 1)]
@@ -35,7 +50,11 @@ class IntroVC: UIViewController {
         view.addSubview(swiftyOnboard)
         swiftyOnboard.dataSource = self
         swiftyOnboard.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissVC), name: NSNotification.Name(rawValue: mySpecialNotificationKey), object: nil)
+        
     }
+    
     
     func gradient() {
         //Add the gradiant to the view:

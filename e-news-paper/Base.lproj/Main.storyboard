@@ -1339,13 +1339,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A new post" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8p-Z0-z2W">
-                                <rect key="frame" x="16" y="273" width="343" height="21"/>
+                                <rect key="frame" x="16" y="253" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4n-Ec-RdY">
-                                <rect key="frame" x="69.5" y="468.5" width="236" height="50"/>
+                                <rect key="frame" x="69.5" y="448.5" width="236" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="236" id="Lpr-sj-I8N"/>
@@ -1359,33 +1359,33 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uet-sE-6JK">
-                                <rect key="frame" x="70" y="384.5" width="289" height="32"/>
+                                <rect key="frame" x="70" y="364.5" width="289" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="Ene-Ar-Nen"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
                                     <action selector="textFieldDidChangeText:" destination="Qg9-Us-CTr" eventType="editingDidEnd" id="1Zg-xG-Ylg"/>
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RXv-YZ-s9L">
-                                <rect key="frame" x="16" y="419.5" width="343" height="2"/>
+                                <rect key="frame" x="16" y="399.5" width="343" height="2"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="qP2-YX-hvW"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvW-ST-cSY" customClass="PNPHighlightButton" customModule="e_news_paper" customModuleProvider="target">
-                                <rect key="frame" x="16" y="324" width="343" height="30"/>
+                                <rect key="frame" x="16" y="304" width="343" height="30"/>
                                 <state key="normal" title="Nigeria"/>
                                 <connections>
                                     <action selector="changeCountry:" destination="Qg9-Us-CTr" eventType="touchUpInside" id="9Xw-ZM-8bO"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+234" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hCh-Du-6LN">
-                                <rect key="frame" x="16" y="383" width="46" height="34"/>
+                                <rect key="frame" x="16" y="363" width="46" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="6IQ-LK-IdR"/>
                                     <constraint firstAttribute="height" constant="34" id="Hhs-Sd-6XO"/>
@@ -1398,7 +1398,7 @@
                                 </connections>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unnamed" translatesAutoresizingMaskIntoConstraints="NO" id="fAj-gU-6nz">
-                                <rect key="frame" x="137.5" y="118" width="100" height="100"/>
+                                <rect key="frame" x="137.5" y="98" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="7gY-hT-ipe"/>
                                     <constraint firstAttribute="width" constant="100" id="k9d-7V-gUm"/>
@@ -1465,7 +1465,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rjr-qr-N91" customClass="PinCodeTextField" customModule="PinCodeTextField">
-                                <rect key="frame" x="16" y="127" width="343" height="72"/>
+                                <rect key="frame" x="16" y="107" width="343" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="72" id="sOX-TR-aK1"/>
@@ -1498,7 +1498,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the OTP Code sent to your device, if you did not get any, try again after 2 minutes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgJ-5D-kSF">
-                                <rect key="frame" x="24" y="269" width="327" height="101"/>
+                                <rect key="frame" x="24" y="249" width="327" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="101" id="yRT-9L-uxz"/>
                                 </constraints>
@@ -1507,7 +1507,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4a3-5R-UO8">
-                                <rect key="frame" x="67.5" y="394" width="240" height="60"/>
+                                <rect key="frame" x="67.5" y="374" width="240" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="NEG-Fs-Dr7"/>
@@ -1888,6 +1888,7 @@
                                         </connections>
                                     </switch>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SV-kh-6Bx">
+                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OUy-OA-XYe">

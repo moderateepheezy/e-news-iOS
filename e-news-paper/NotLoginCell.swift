@@ -8,7 +8,7 @@
 
 import UIKit
 //import GoogleSignIn
-import Google
+import GoogleSignIn
 import FBSDKLoginKit
 
 class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
@@ -40,7 +40,7 @@ class NotLoginCell: UITableViewCell, GIDSignInDelegate, GIDSignInUIDelegate{
     @IBAction func googleLoginTapped(_ sender: Any) {
         // Initialize sign-in
         var configureError: NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
+        //GGLContext.sharedInstance().configureWithError(&configureError)
         
         //assert(configureError == nil, "Error configuring Google services: \(configureError)")
         if configureError != nil {

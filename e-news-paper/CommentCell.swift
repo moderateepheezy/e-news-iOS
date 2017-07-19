@@ -8,14 +8,15 @@
 
 import UIKit
 
+
 class CommentCell: UITableViewCell {
     
     
     var comment: Comment? {
         didSet{
             
-            let url = NSURL(string: (comment?.userImage)!)
-            userProfileImageView.or_setProfileImageWithURL(url: url!)
+            let url = URL(string: (comment?.userImage)!)
+            userProfileImageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "pp"))
             usernameLabel.text = comment?.username
             commentLabel.text = comment?.text
             

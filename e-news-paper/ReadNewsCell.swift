@@ -14,6 +14,8 @@ class ReadNewsCell: UITableViewCell {
     @IBOutlet weak var readNewsLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    fileprivate var storageRef = Storage.storage().reference()
+    
     var profileController: ProfileViewController?
     var newses = [News]()
     
@@ -92,20 +94,11 @@ extension ReadNewsCell: UITableViewDelegate, UITableViewDataSource{
         
         cell.news = news
         
-        if let imageUrl = news.thumbnail{
-            
-            let vendorStorageRef = Storage.storage().reference().child(imageUrl)
-            vendorStorageRef.downloadURL(completion: { (url, error) in
-                if error != nil{
-                    return
-                }
-                
-                if let updateCell = tableView.cellForRow(at: indexPath) as? ReadCell {
-                    updateCell.newsImageView.or_setImageWithURL(url: url! as NSURL)
-                }
-                
-            })
-            
+        if let path = news.thumbnail{
+            if let url = URL(string: path) {
+                self.storageRef = Storage.storage().reference(withPath: url.path)
+                cell.newsImageView.sd_setImage(with: self.storageRef, placeholderImage: #imageLiteral(resourceName: "default"))
+            }
         }
         
         return cell

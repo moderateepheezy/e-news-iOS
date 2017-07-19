@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+let imageCache = NSCache<AnyObject, AnyObject>()
+
 extension UIColor{
     
     convenience init(red: CGFloat, green: CGFloat, blue: CGFloat) {
@@ -95,5 +97,31 @@ extension NSLayoutConstraint {
     
     override open var description: String {
         return "id: \(identifier ?? ""), constant: \(constant)"
+    }
+}
+
+extension UIImageView {
+    
+    func loadImageWithCacheUsing(urlString: String){
+        
+        //check cache for image first
+        if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage{
+            self.image = cachedImage
+        }
+        
+        let url = URL(string: urlString)
+        
+        URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+            if error != nil{
+                return
+            }
+            DispatchQueue.main.async {
+                
+                
+                guard let downloadedImage = UIImage(data: data!) else {return}
+                imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
+                self.image = downloadedImage
+            }
+        }).resume()
     }
 }

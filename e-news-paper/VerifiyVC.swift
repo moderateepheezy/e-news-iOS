@@ -16,10 +16,11 @@ class VerifiyVC: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var pinTextField: PinCodeTextField!
     
+    var introVcDelegate: IntroVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        pinTextField.keyboardType = .numberPad
     }
     
     
@@ -46,8 +47,9 @@ class VerifiyVC: UIViewController, NVActivityIndicatorViewable {
     }
     
     private func goToMain(){
-        let mainVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTab") as! MainTabBarController
-        present(mainVc, animated: true, completion: nil)
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: mySpecialNotificationKey), object: nil)
+        }
     }
     
     fileprivate func saveMssisdn(msisdn: String){
