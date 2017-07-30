@@ -28,6 +28,9 @@
 "googleText" = "Connectez-vous avec Google";
 "facebookText" = "Connectez-vous avec Facebook";
 
+"firstText" = "Accéder aux nouvelles de différents fournisseurs";
+"secondText" = "Nouvelles instantanées";
+"thirdText" = "Personnalisez les nouvelles à votre goût";
 
 /** TabBar Icons Text **/
 "vendorText" = "VENDEUR";

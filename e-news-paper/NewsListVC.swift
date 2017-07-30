@@ -13,6 +13,12 @@ import FirebaseStorageUI
 class NewsListVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var subscribeBtn: UIButton!
+    
+    @IBAction func subscribeButton(_ sender: Any) {
+        handleReadMore()
+    }
+    
     
     fileprivate var searchBar: UISearchBar!
     
@@ -20,14 +26,51 @@ class NewsListVC: UIViewController {
     
     fileprivate var storageRef = Storage.storage().reference()
     
-    var vendor: NewsPaper?
+    var vendor: NewsPaper?{
+        didSet{
+                let key = vendor?.vendorKey
+                let userKey = UserDefaults.standard.getUserKey()
+                
+                AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(key!)
+                    .observeSingleEvent(of: .value, with: { (snapshot) in
+                        if snapshot.key == key && !(snapshot.value  is NSNull){
+                            print(snapshot)
+                            self.isSubscribed = true
+                            self.subscribeBtn.alpha = 0
+                            self.readMoreButton.setTitle(Localization("readMoreText"), for: .normal)
+                            
+                        }
+                        
+                    })
+        }
+    }
     
     var newses = [News]()
     
     var filtered = [News]()
     
+    var isSubscribed = false
+    
+    let readMoreButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("Load More", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = UIColor(white: 1, alpha: 0.75)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        view.addSubview(readMoreButton)
+        
+        readMoreButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
+        readMoreButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 20).isActive = true
+        readMoreButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        readMoreButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        readMoreButton.addTarget(self, action: #selector(handleReadMore), for: .touchUpInside)
         
         searchBar = UISearchBar()
         //searchBar.placeholder = "Find Contact"
@@ -47,7 +90,6 @@ class NewsListVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        //navigationItem.title = vendor?.paper_name
         AppFirRef.newsRef.queryOrdered(byChild: "newspaper_id").queryEqual(toValue: vendor?.vendorKey).observe(.childAdded, with: { (snapshot) in
             guard let value = snapshot.value as? [String : Any] else { return }
             
@@ -172,10 +214,24 @@ extension NewsListVC: UITableViewDataSource, UITableViewDelegate{
                 tableView.backgroundView  = noDataLabel
                 tableView.separatorStyle  = .none
             }
+            if isSubscribed {
+                return filtered.count
+            }else{
+                if filtered.count < 2{
+                    return filtered.count
+                }
+                return 2
+            }
             
-            return filtered.count
         }
-        return newses.count
+        if isSubscribed {
+            return newses.count
+        }else{
+            if newses.count < 2{
+                return filtered.count
+            }
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -239,6 +295,138 @@ extension NewsListVC: UISearchBarDelegate {
 //            return range.location != NSNotFound
 //        }
         self.tableView.reloadData()
+    }
+    
+}
+
+extension NewsListVC{
+    
+    func handleReadMore(){
+        if(isSubscribed){
+            isSubscribed = false
+            self.subscribeBtn.alpha = 0
+            unSubscribe(vendorId: (vendor?.vendorKey)!)
+            
+        }else{
+            timelyConfig()
+        }
+    }
+    
+    func timelyConfig(){
+        
+        
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        let attributedString = NSAttributedString(string: "", attributes: [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 15), //your font here
+            NSForegroundColorAttributeName : UIColor.black
+            ])
+        
+        optionMenu.setValue(attributedString, forKey: "attributedTitle")
+        
+        let dailyAction = UIAlertAction(title: "Daily", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subType()
+        })
+        let weeklyAction = UIAlertAction(title: "Weekly", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subType()
+        })
+        
+        let monthlyAction = UIAlertAction(title: "Monthly", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subType()
+        })
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        
+        
+        optionMenu.addAction(dailyAction)
+        optionMenu.addAction(weeklyAction)
+        optionMenu.addAction(monthlyAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    func subType(){
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        let attributedString = NSAttributedString(string: "Choose Option", attributes: [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 15), //your font here
+            NSForegroundColorAttributeName : UIColor.black
+            ])
+        
+        optionMenu.setValue(attributedString, forKey: "attributedTitle")
+        
+        let directAction = UIAlertAction(title: "Direct Billing", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subscribe(vendorId: (self.vendor?.vendorKey)!)
+            self.readMoreButton.alpha = 0
+            self.isSubscribed = true
+        })
+        let mobileAction = UIAlertAction(title: "Mobile Money", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.subscribe(vendorId: (self.vendor?.vendorKey)!)
+            
+            self.readMoreButton.alpha = 0
+            
+            self.isSubscribed = true
+            
+            self.tableView.isScrollEnabled = true
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        
+        
+        
+        
+        optionMenu.addAction(directAction)
+        optionMenu.addAction(mobileAction)
+        optionMenu.addAction(cancelAction)
+        
+        
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    private func subscribe(vendorId: String){
+        let userKey = UserDefaults.standard.getUserKey()
+        AppFirRef.subscriberRef.child(userKey).queryOrdered(byChild: "susbscriptions").queryEqual(toValue: vendorId).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.childrenCount.hashValue > 0 {
+                
+            }else{
+                AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).setValue(true)
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).setValue(true)
+                self.subscribeBtn.alpha = 0
+                self.tableView.reloadData()
+            }
+            
+        })
+    }
+    
+    private func unSubscribe(vendorId: String){
+        let userKey = UserDefaults.standard.getUserKey()
+        AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if snapshot.key == vendorId{
+                AppFirRef.subscriberRef.child(userKey).child("susbscriptions").child(vendorId).removeValue()
+                
+                let userKey = UserDefaults.standard.getUserKey()
+                let subRef = Database.database().reference().child("newspapers").child((self.vendor?.vendorKey)!).child("users_subscribed")
+                subRef.child(userKey).removeValue()
+            }
+        })
     }
 }
 

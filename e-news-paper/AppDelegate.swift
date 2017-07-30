@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = MainTabBarController()
         
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         //Optionally add to ensure your credentials are valid:
         
@@ -116,6 +117,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func receiveLanguageChangedNotification(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            //configureViewFromLocalisation()
+        }
+    }
+    
+    
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
         
@@ -143,6 +152,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return googleDidHandle || facebookDidHandle
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: kNotificationLanguageChanged, object: nil)
+    }
 
 }
 

@@ -29,7 +29,7 @@ class IntroVC: UIViewController, IntroVCDelegate {
     var swiftyOnboard: SwiftyOnboard!
     let colors:[UIColor] = [#colorLiteral(red: 0.5921568627, green: 0.3843137255, blue: 0.6431372549, alpha: 1),#colorLiteral(red: 0.2156862745, green: 0.7254901961, blue: 0.937254902, alpha: 1),#colorLiteral(red: 0.7215686275, green: 0.7333333333, blue: 0.7294117647, alpha: 1)]
     var titleArray: [String] = ["E-News Paper", "E-News Paper", "E-News Paper"]
-    var subTitleArray: [String] = ["Access news from different vendors", "Instant news", "Customize news to your taste."]
+    var subTitleArray: [String]?
     
     var gradiant: CAGradientLayer = {
         //Gradiant for the background view
@@ -44,8 +44,10 @@ class IntroVC: UIViewController, IntroVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         gradient()
-        UIApplication.shared.statusBarStyle = .lightContent
         
+        configureView()
+        NotificationCenter.default.addObserver(self, selector: #selector(setTexts(notification:)), name: kNotificationLanguageChanged, object: nil)
+        UIApplication.shared.statusBarStyle = .lightContent
         swiftyOnboard = SwiftyOnboard(frame: view.frame, style: .light)
         view.addSubview(swiftyOnboard)
         swiftyOnboard.dataSource = self
@@ -53,6 +55,23 @@ class IntroVC: UIViewController, IntroVCDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(dismissVC), name: NSNotification.Name(rawValue: mySpecialNotificationKey), object: nil)
         
+    }
+    
+    func setTexts(notification:NSNotification) {
+        if notification.name == kNotificationLanguageChanged {
+            configureView()
+        }
+    }
+
+func configureView(){
+    subTitleArray = [Localization("firstText"), Localization("secondText"), Localization("thirdText")]
+}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if !SetLanguage("French_fr") {
+            changeLanguage()
+        }
     }
     
     
@@ -103,7 +122,7 @@ extension IntroVC: SwiftyOnboardDelegate, SwiftyOnboardDataSource {
         
         //Set the text in the page:
         view.title.text = titleArray[index]
-        view.subTitle.text = subTitleArray[index]
+        view.subTitle.text = subTitleArray?[index]
         
         //Return the page for the given index:
         return view
@@ -143,6 +162,37 @@ extension IntroVC: SwiftyOnboardDelegate, SwiftyOnboardDataSource {
             overlay.skipButton.isHidden = true
         }
     }
+    
+    func changeLanguage(){
+        
+        Localisator.sharedInstance.saveInUserDefaults = true
+        
+        let optionMenu = UIAlertController(title: nil, message: "Choose Default Language", preferredStyle: .alert)
+        
+        let attributedString = NSAttributedString(string: "", attributes: [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 15), //your font here
+            NSForegroundColorAttributeName : UIColor.black
+            ])
+        
+        optionMenu.setValue(attributedString, forKey: "attributedTitle")
+        
+        let englishAction = UIAlertAction(title: "English", style: .default, handler: nil)
+        
+        let frenchAction = UIAlertAction(title: "French", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            if SetLanguage("French_fr") {
+                let alert = UIAlertView(title: nil, message: Localization("languageChangedWarningMessage"), delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
+                self.viewDidLoad()
+            }
+        })
+        
+        optionMenu.addAction(englishAction)
+        optionMenu.addAction(frenchAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
 }
 
 

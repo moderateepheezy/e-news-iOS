@@ -45,7 +45,6 @@ class MainTabBarController: UITabBarController {
     func createLocalNotification(){
         let localNotification = UILocalNotification()
         localNotification.fireDate = Date(timeIntervalSince1970: 10)
-        localNotification.applicationIconBadgeNumber = 1
         localNotification.soundName = UILocalNotificationDefaultSoundName
         localNotification.userInfo = [
             "message": "A new item has been added!"

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -139,7 +138,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="287" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJI-ZP-4Ti">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsListCell" rowHeight="290" id="xhj-fq-pXK" customClass="NewsListCell" customModule="e_news_paper" customModuleProvider="target">
@@ -224,17 +223,34 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQm-6X-gRy">
+                                <rect key="frame" x="165" y="617" width="194" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Hea-p7-eLp"/>
+                                    <constraint firstAttribute="width" constant="194" id="w6Y-hd-hbu"/>
+                                </constraints>
+                                <state key="normal" title="Subscribe for more">
+                                    <color key="titleColor" red="0.95800285529999996" green="0.95800285529999996" blue="0.95800285529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="subscribeButton:" destination="xiJ-cU-SGc" eventType="touchUpInside" id="OgS-ye-s0o"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="j40-qi-mLC" firstAttribute="top" secondItem="mJI-ZP-4Ti" secondAttribute="bottom" id="JPI-ju-KQt"/>
+                            <constraint firstItem="JQm-6X-gRy" firstAttribute="trailing" secondItem="4Qq-OU-5ak" secondAttribute="trailingMargin" id="9na-ep-2q9"/>
+                            <constraint firstItem="j40-qi-mLC" firstAttribute="top" secondItem="mJI-ZP-4Ti" secondAttribute="bottom" constant="70" id="JPI-ju-KQt"/>
                             <constraint firstItem="mJI-ZP-4Ti" firstAttribute="top" secondItem="4Qq-OU-5ak" secondAttribute="top" id="NEn-HM-0it"/>
+                            <constraint firstItem="j40-qi-mLC" firstAttribute="top" secondItem="JQm-6X-gRy" secondAttribute="bottom" constant="20" id="Oyu-7l-3FR"/>
                             <constraint firstItem="mJI-ZP-4Ti" firstAttribute="leading" secondItem="4Qq-OU-5ak" secondAttribute="leading" id="cUn-hd-Cbn"/>
                             <constraint firstAttribute="trailing" secondItem="mJI-ZP-4Ti" secondAttribute="trailing" id="tYY-rK-TaM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="prc-KK-ayU"/>
                     <connections>
+                        <outlet property="subscribeBtn" destination="JQm-6X-gRy" id="ixq-v7-Yuh"/>
                         <outlet property="tableView" destination="mJI-ZP-4Ti" id="i6v-UN-B3u"/>
                         <segue destination="LHI-Zr-59x" kind="show" identifier="ShowDetails" id="F3i-eM-dqg"/>
                     </connections>
@@ -586,7 +602,7 @@
         <scene sceneID="4Zx-NS-FZl">
             <objects>
                 <collectionViewController id="she-L4-tWD" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="vJJ-Rp-jKk">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="vJJ-Rp-jKk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1724,7 +1740,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="y0M-gt-gb6" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YrA-z5-GEG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YrA-z5-GEG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1742,7 +1758,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ezx-ap-DEq" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fqx-Lr-DdF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fqx-Lr-DdF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1778,7 +1794,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2UI-5d-b8T" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="an6-Te-dFS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="an6-Te-dFS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1796,7 +1812,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OZG-af-O4v" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rFk-VW-Tt1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rFk-VW-Tt1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1814,7 +1830,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Yoy-FD-ehw" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rtI-N6-NN3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rtI-N6-NN3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1956,7 +1972,7 @@
         <image name="white_background" width="1280" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="X4x-sw-GpM"/>
         <segue reference="F3i-eM-dqg"/>
+        <segue reference="TwQ-57-shK"/>
     </inferredMetricsTieBreakers>
 </document>

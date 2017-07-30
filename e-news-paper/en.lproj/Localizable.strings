@@ -26,6 +26,9 @@
 "emailText" = "Email";
 "usernameText" = "Username";
 
+"firstText" = "Access news from different vendors";
+"secondText" = "Instant news";
+"thirdText" = "Customize news to your taste.";
 
 "accountText" = "ACCOUNT";
 "googleText" = "Login with Google";
